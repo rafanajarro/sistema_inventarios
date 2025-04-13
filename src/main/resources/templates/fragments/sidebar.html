@@ -1,0 +1,27 @@
+<!-- templates/fragments/sidebar.html -->
+<div th:fragment="sidebar">
+    <div class="sidebar d-flex flex-column">
+        <div class="brand-logo">
+            -
+            SISTEMA INVENTARIO
+        </div>
+
+        <h6>Home</h6>
+        <a th:href="@{/inicio}" class="nav-link active">
+            <i class="bi bi-grid-fill"></i> Dashboard
+        </a>
+
+        <h6>Utilities</h6>
+        <a href="/empresa" class="nav-link">
+            <i class="bi bi-building-fill"></i> Empresa
+        </a>
+        <a th:href="@{/shadow}" class="nav-link">
+            <i class="bi bi-layers"></i> Shadow
+        </a>
+
+        <h6>Auth</h6>
+        <a th:href="@{/login}" class="nav-link">
+            <i class="bi bi-box-arrow-in-right"></i> Cerrar sesión
+        </a>
+    </div>
+</div>

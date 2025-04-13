@@ -1,0 +1,836 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PPUDBF" pageWidth="612" pageHeight="792" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="9dfeb747-af47-4b61-9889-81e90992aac9">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MSSQL_PASANTIAS_INDUSTRIAL"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.report.description" value=""/>
+	<parameter name="ID_PASANTIA" class="java.lang.String"/>
+	<parameter name="ID_CARRERA" class="java.lang.String"/>
+	<parameter name="CARNET" class="java.lang.String"/>
+	<parameter name="PROGRAMA" class="java.lang.String"/>
+	<parameter name="QUERY" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[($P{PROGRAMA} == null || $P{PROGRAMA}.isEmpty())?
+"SELECT FORMAT( P.CORRELATIVO,'000') AS CORRELATIVO,C.COD_CARRERA,P.CARNET AS CARNET,CONCAT( E.NOMBRES,' ',E.APELLIDOS) AS NOMBRE,E.TELEFONO,E.TELEFONO2,E.CORREO,P.FECHA_INGRESO_UNIVERSIDAD,CONCAT( '[',c.COD_CARRERA,'] ',c.DESCRIPCION) AS NOMBRE_CARRERA,P.ANIO_ESTUDIANTE,PP.MATERIAS_CURSADAS_CANTIDAD,PP.MATERIAS_CURSADAS_UV,EM.NOMBRE AS NOMBRE_EMPRESA,EM.UBICACION,EM.SITIO_WEB,EM.TELEFONO AS TEL_EMPRESA,PR.NOMBRE_PROGRAMA,PR.NOMBRE_RESPONSABLE,PR.AREA_REALIZACION,PR.OTROS_DETALLES,PR.OBSERVACIONES FROM PASANTIA P INNER JOIN ESTUDIANTE E ON (E.CARNET = P.CARNET) INNER JOIN CARRERA C ON ( C.ID_CARRERA = P.ID_CARRERA) INNER JOIN PASANTIA_PROGRAMA PP ON (PP.ID_PASANTIA = P.ID_PASANTIA) INNER JOIN PROGRAMA PR ON ( PR.ID_PROGRAMA = PP.ID_PROGRAMA) LEFT JOIN EMPRESA EM ON ( EM.ID_EMPRESA = PR.ID_EMPRESA) LEFT JOIN MATERIA MT ON ( MT.ID_MATERIA = PR.ID_MATERIA  AND MT.ID_CARRERA = P.ID_CARRERA) WHERE P.CARNET = $P{CARNET} AND P.ID_PASANTIA = $P{ID_PASANTIA} AND P.ID_CARRERA = $P{ID_CARRERA}": "SELECT FORMAT( P.CORRELATIVO,'000') AS CORRELATIVO,C.COD_CARRERA,P.CARNET AS CARNET,CONCAT( E.NOMBRES,' ',E.APELLIDOS) AS NOMBRE,E.TELEFONO,E.TELEFONO2,E.CORREO,P.FECHA_INGRESO_UNIVERSIDAD,CONCAT( '[',c.COD_CARRERA,'] ',c.DESCRIPCION) AS NOMBRE_CARRERA,P.ANIO_ESTUDIANTE,PP.MATERIAS_CURSADAS_CANTIDAD,PP.MATERIAS_CURSADAS_UV,EM.NOMBRE AS NOMBRE_EMPRESA,EM.UBICACION,EM.SITIO_WEB,EM.TELEFONO AS TEL_EMPRESA,PR.NOMBRE_PROGRAMA,PR.NOMBRE_RESPONSABLE,PR.AREA_REALIZACION,PR.OTROS_DETALLES,PR.OBSERVACIONES FROM PASANTIA P INNER JOIN ESTUDIANTE E ON (E.CARNET = P.CARNET) INNER JOIN CARRERA C ON ( C.ID_CARRERA = P.ID_CARRERA) INNER JOIN PASANTIA_PROGRAMA PP ON (PP.ID_PASANTIA = P.ID_PASANTIA) INNER JOIN PROGRAMA PR ON ( PR.ID_PROGRAMA = PP.ID_PROGRAMA) LEFT JOIN EMPRESA EM ON ( EM.ID_EMPRESA = PR.ID_EMPRESA) LEFT JOIN MATERIA MT ON ( MT.ID_MATERIA = PR.ID_MATERIA  AND MT.ID_CARRERA = P.ID_CARRERA) WHERE P.CARNET = $P{CARNET} AND P.ID_PASANTIA = $P{ID_PASANTIA} AND P.ID_CARRERA = $P{ID_CARRERA} AND PR.ID_PROGRAMA = $P{PROGRAMA}"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT FORMAT( P.CORRELATIVO,'000') AS CORRELATIVO,
+	C."COD_CARRERA",
+	P."CARNET" AS CARNET,
+	CONCAT( E.NOMBRES,' ',E.APELLIDOS) AS NOMBRE,
+	E."TELEFONO",
+	E."TELEFONO2",
+	E."CORREO",
+	P."FECHA_INGRESO_UNIVERSIDAD",
+	CONCAT( '[',c.COD_CARRERA,'] ',c.DESCRIPCION) AS NOMBRE_CARRERA,
+	P."ANIO_ESTUDIANTE",
+	PP."MATERIAS_CURSADAS_CANTIDAD",
+	PP."MATERIAS_CURSADAS_UV",
+	EM."NOMBRE" AS NOMBRE_EMPRESA,
+	EM."UBICACION",
+	EM."SITIO_WEB",
+	EM."TELEFONO" AS TEL_EMPRESA,
+	PR."NOMBRE_PROGRAMA",
+	PR."NOMBRE_RESPONSABLE",
+	PR."AREA_REALIZACION",
+	PR."OTROS_DETALLES",
+	PR."OBSERVACIONES",
+	 PR."ID_PROGRAMA"
+FROM "PASANTIA" P
+	INNER JOIN "ESTUDIANTE" E ON 
+	  ( 
+	 E."CARNET" = P."CARNET") 
+	INNER JOIN "CARRERA" C ON 
+	  ( 
+	 C."ID_CARRERA" = P."ID_CARRERA") 
+	INNER JOIN "PASANTIA_PROGRAMA" PP ON 
+	  ( 
+	 PP."ID_PASANTIA" = P."ID_PASANTIA") 
+	INNER JOIN "PROGRAMA" PR ON 
+	  ( 
+	 PR."ID_PROGRAMA" = PP."ID_PROGRAMA") 
+	LEFT JOIN "EMPRESA" EM ON 
+	  ( 
+	 EM."ID_EMPRESA" = PR."ID_EMPRESA") 
+	LEFT JOIN "MATERIA" MT ON 
+	  ( 
+	 MT."ID_MATERIA" = PR."ID_MATERIA" 
+	 AND MT."ID_CARRERA" = P."ID_CARRERA") 
+WHERE 
+	 P."CARNET" = $P{CARNET} 
+	 AND P."ID_PASANTIA" = $P{ID_PASANTIA} 
+	 AND P."ID_CARRERA" = $P{ID_CARRERA}
+	]]>
+	</queryString>
+	<field name="CORRELATIVO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="CORRELATIVO"/>
+		<property name="com.jaspersoft.studio.field.label" value="CORRELATIVO"/>
+	</field>
+	<field name="COD_CARRERA" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="COD_CARRERA"/>
+		<property name="com.jaspersoft.studio.field.label" value="COD_CARRERA"/>
+	</field>
+	<field name="CARNET" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="CARNET"/>
+		<property name="com.jaspersoft.studio.field.label" value="CARNET"/>
+	</field>
+	<field name="NOMBRE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="NOMBRE"/>
+		<property name="com.jaspersoft.studio.field.label" value="NOMBRE"/>
+	</field>
+	<field name="TELEFONO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="TELEFONO"/>
+		<property name="com.jaspersoft.studio.field.label" value="TELEFONO"/>
+	</field>
+	<field name="TELEFONO2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="TELEFONO2"/>
+		<property name="com.jaspersoft.studio.field.label" value="TELEFONO2"/>
+	</field>
+	<field name="CORREO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="CORREO"/>
+		<property name="com.jaspersoft.studio.field.label" value="CORREO"/>
+	</field>
+	<field name="FECHA_INGRESO_UNIVERSIDAD" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="FECHA_INGRESO_UNIVERSIDAD"/>
+		<property name="com.jaspersoft.studio.field.label" value="FECHA_INGRESO_UNIVERSIDAD"/>
+	</field>
+	<field name="NOMBRE_CARRERA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="NOMBRE_CARRERA"/>
+		<property name="com.jaspersoft.studio.field.label" value="NOMBRE_CARRERA"/>
+	</field>
+	<field name="ANIO_ESTUDIANTE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ANIO_ESTUDIANTE"/>
+		<property name="com.jaspersoft.studio.field.label" value="ANIO_ESTUDIANTE"/>
+	</field>
+	<field name="MATERIAS_CURSADAS_CANTIDAD" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="MATERIAS_CURSADAS_CANTIDAD"/>
+		<property name="com.jaspersoft.studio.field.label" value="MATERIAS_CURSADAS_CANTIDAD"/>
+	</field>
+	<field name="MATERIAS_CURSADAS_UV" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="MATERIAS_CURSADAS_UV"/>
+		<property name="com.jaspersoft.studio.field.label" value="MATERIAS_CURSADAS_UV"/>
+	</field>
+	<field name="NOMBRE_EMPRESA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="NOMBRE_EMPRESA"/>
+		<property name="com.jaspersoft.studio.field.label" value="NOMBRE_EMPRESA"/>
+	</field>
+	<field name="UBICACION" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="UBICACION"/>
+		<property name="com.jaspersoft.studio.field.label" value="UBICACION"/>
+	</field>
+	<field name="SITIO_WEB" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="SITIO_WEB"/>
+		<property name="com.jaspersoft.studio.field.label" value="SITIO_WEB"/>
+	</field>
+	<field name="TEL_EMPRESA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="TEL_EMPRESA"/>
+		<property name="com.jaspersoft.studio.field.label" value="TEL_EMPRESA"/>
+	</field>
+	<field name="NOMBRE_PROGRAMA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="NOMBRE_PROGRAMA"/>
+		<property name="com.jaspersoft.studio.field.label" value="NOMBRE_PROGRAMA"/>
+	</field>
+	<field name="NOMBRE_RESPONSABLE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="NOMBRE_RESPONSABLE"/>
+		<property name="com.jaspersoft.studio.field.label" value="NOMBRE_RESPONSABLE"/>
+	</field>
+	<field name="AREA_REALIZACION" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="AREA_REALIZACION"/>
+		<property name="com.jaspersoft.studio.field.label" value="AREA_REALIZACION"/>
+	</field>
+	<field name="OTROS_DETALLES" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="OTROS_DETALLES"/>
+		<property name="com.jaspersoft.studio.field.label" value="OTROS_DETALLES"/>
+	</field>
+	<field name="OBSERVACIONES" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="OBSERVACIONES"/>
+		<property name="com.jaspersoft.studio.field.label" value="OBSERVACIONES"/>
+	</field>
+	<field name="ID_PROGRAMA" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="ID_PROGRAMA"/>
+		<property name="com.jaspersoft.studio.field.label" value="ID_PROGRAMA"/>
+	</field>
+	<variable name="QUERY" class="java.lang.String">
+		<variableExpression><![CDATA[($P{PROGRAMA} == null || $P{PROGRAMA}.isEmpty())?
+"SELECT FORMAT( P.CORRELATIVO,'000') AS CORRELATIVO,C.COD_CARRERA,P.CARNET AS CARNET,CONCAT( E.NOMBRES,' ',E.APELLIDOS) AS NOMBRE,E.TELEFONO,E.TELEFONO2,E.CORREO,P.FECHA_INGRESO_UNIVERSIDAD,CONCAT( '[',c.COD_CARRERA,'] ',c.DESCRIPCION) AS NOMBRE_CARRERA,P.ANIO_ESTUDIANTE,PP.MATERIAS_CURSADAS_CANTIDAD,PP.MATERIAS_CURSADAS_UV,EM.NOMBRE AS NOMBRE_EMPRESA,EM.UBICACION,EM.SITIO_WEB,EM.TELEFONO AS TEL_EMPRESA,PR.NOMBRE_PROGRAMA,PR.NOMBRE_RESPONSABLE,PR.AREA_REALIZACION,PR.OTROS_DETALLES,PR.OBSERVACIONES FROM PASANTIA P INNER JOIN ESTUDIANTE E ON (E.CARNET = P.CARNET) INNER JOIN CARRERA C ON ( C.ID_CARRERA = P.ID_CARRERA) INNER JOIN PASANTIA_PROGRAMA PP ON (PP.ID_PASANTIA = P.ID_PASANTIA) INNER JOIN PROGRAMA PR ON ( PR.ID_PROGRAMA = PP.ID_PROGRAMA) LEFT JOIN EMPRESA EM ON ( EM.ID_EMPRESA = PR.ID_EMPRESA) LEFT JOIN MATERIA MT ON ( MT.ID_MATERIA = PR.ID_MATERIA  AND MT.ID_CARRERA = P.ID_CARRERA) WHERE P.CARNET = $P{CARNET} AND P.ID_PASANTIA = $P{ID_PASANTIA} AND P.ID_CARRERA = $P{ID_CARRERA}": "SELECT FORMAT( P.CORRELATIVO,'000') AS CORRELATIVO,C.COD_CARRERA,P.CARNET AS CARNET,CONCAT( E.NOMBRES,' ',E.APELLIDOS) AS NOMBRE,E.TELEFONO,E.TELEFONO2,E.CORREO,P.FECHA_INGRESO_UNIVERSIDAD,CONCAT( '[',c.COD_CARRERA,'] ',c.DESCRIPCION) AS NOMBRE_CARRERA,P.ANIO_ESTUDIANTE,PP.MATERIAS_CURSADAS_CANTIDAD,PP.MATERIAS_CURSADAS_UV,EM.NOMBRE AS NOMBRE_EMPRESA,EM.UBICACION,EM.SITIO_WEB,EM.TELEFONO AS TEL_EMPRESA,PR.NOMBRE_PROGRAMA,PR.NOMBRE_RESPONSABLE,PR.AREA_REALIZACION,PR.OTROS_DETALLES,PR.OBSERVACIONES FROM PASANTIA P INNER JOIN ESTUDIANTE E ON (E.CARNET = P.CARNET) INNER JOIN CARRERA C ON ( C.ID_CARRERA = P.ID_CARRERA) INNER JOIN PASANTIA_PROGRAMA PP ON (PP.ID_PASANTIA = P.ID_PASANTIA) INNER JOIN PROGRAMA PR ON ( PR.ID_PROGRAMA = PP.ID_PROGRAMA) LEFT JOIN EMPRESA EM ON ( EM.ID_EMPRESA = PR.ID_EMPRESA) LEFT JOIN MATERIA MT ON ( MT.ID_MATERIA = PR.ID_MATERIA  AND MT.ID_CARRERA = P.ID_CARRERA) WHERE P.CARNET = $P{CARNET} AND P.ID_PASANTIA = $P{ID_PASANTIA} AND P.ID_CARRERA = $P{ID_CARRERA} AND PR.ID_PROGRAMA = $P{PROGRAMA}"]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="752" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<printWhenExpression><![CDATA[($P{PROGRAMA} == null || $P{PROGRAMA}.isEmpty() )? true : ($P{PROGRAMA} .equals($F{ID_PROGRAMA}.toString()))]]></printWhenExpression>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="0" width="217" height="31" uuid="b6720379-0c2a-4734-96b4-93084a8e76cc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Formulario PP-UDB-FI-01]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="217" y="0" width="120" height="30" uuid="3a1be6cd-3b58-4e61-9e63-15132587f8e6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Práctica Profesional No.]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="337" y="0" width="21" height="21" uuid="8ba5c5a6-ebbc-4969-b5ac-19aef56101a7"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{COD_CARRERA}.toString().charAt(0)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="358" y="0" width="21" height="21" uuid="e3bed6f0-7d81-47fe-8d5a-0f8bcbe55de9"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{COD_CARRERA}.toString().charAt(1)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="379" y="0" width="21" height="21" uuid="1cb54674-5203-4d16-89b8-c6c5e9cf10d9"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{COD_CARRERA}.toString().charAt(2)]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="400" y="0" width="21" height="21" uuid="5fd6ec68-1463-4f13-a741-31512bb7ba0f"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="421" y="0" width="21" height="21" uuid="44241c16-831b-4361-a46f-ce76f59a7950"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{CORRELATIVO}.charAt(0)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="442" y="0" width="21" height="21" uuid="144d0ade-05d8-426f-a55b-28b3fa20ca39"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{CORRELATIVO}.charAt(1)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="463" y="0" width="21" height="21" uuid="3499a1c7-506e-4633-8f18-9e7f1e9034a4"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{CORRELATIVO}.charAt(2)]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="484" y="0" width="21" height="21" uuid="48f6e50a-bd66-4482-9e70-3bb53a14c693"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="505" y="0" width="21" height="21" uuid="6e92b06e-5f04-43f9-8bbc-21f8267bc617"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ANIO_ESTUDIANTE}.charAt(0)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="527" y="0" width="21" height="21" uuid="d9564c19-8d74-46c6-9a95-16c9424f15b7"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ANIO_ESTUDIANTE}.charAt(1)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="548" y="0" width="21" height="21" uuid="d5564864-74bc-48bd-b440-7f2d4385d410"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ANIO_ESTUDIANTE}.charAt(2)]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement positionType="Float" x="337" y="25" width="232" height="1" uuid="4a7921d6-7d97-4780-a78e-f121f08c176d"/>
+				<graphicElement>
+					<pen lineWidth="4.0"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement positionType="Float" x="80" y="31" width="400" height="49" uuid="480e60ed-f057-4c9b-b8ed-4980c163fce7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SOLICITUD OFICIAL DEL ESTUDIANTE PARA REALIZAR SU PRACTICA PROFESIONAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="80" width="571" height="20" uuid="d91624d7-c83f-4c4d-ada1-2e4f422b7112"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[I.       Datos Generales del Prestador]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="100" width="181" height="21" uuid="393832bc-1aea-48c9-9632-edfe68c85d0e">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<text><![CDATA[No. de Carné]]></text>
+			</staticText>
+			<textField textAdjust="ScaleFont">
+				<reportElement positionType="Float" x="181" y="100" width="390" height="21" uuid="fafdfa25-7289-41f8-9762-cb155b385b8c">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CARNET}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" stretchType="ElementGroupHeight" x="0" y="121" width="181" height="39" uuid="613c615a-ffcb-4c33-8ea2-ab2dd8b4f095">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<text><![CDATA[Nombre del Estudiante:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" stretchType="ElementGroupHeight" x="410" y="121" width="161" height="39" uuid="5851d251-1c9e-46d8-b00a-c8d7884fb27e">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="160" width="100" height="30" uuid="845069bb-248e-46df-8437-03775f54ce79">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<text><![CDATA[Teléfonos:]]></text>
+			</staticText>
+			<textField textAdjust="ScaleFont">
+				<reportElement positionType="Float" x="100" y="160" width="180" height="30" uuid="bbbc5fad-39d2-414e-befe-b328b4623e7b"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{TELEFONO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="280" y="160" width="100" height="30" uuid="19901281-7246-4bb9-b8d3-a9741f718919">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<text><![CDATA[Teléfono Celular:]]></text>
+			</staticText>
+			<textField textAdjust="ScaleFont">
+				<reportElement positionType="Float" x="380" y="160" width="191" height="30" uuid="6e643834-1b6f-40ed-bee9-d0a7eec9fc89"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{TELEFONO2}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="190" width="100" height="30" uuid="78ddbbe3-b933-47e8-b2fd-ad0e2b8099f5">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<text><![CDATA[Correo:]]></text>
+			</staticText>
+			<textField textAdjust="ScaleFont">
+				<reportElement positionType="Float" x="100" y="190" width="471" height="30" uuid="819ea2b2-3556-404d-9487-8b45c24e7ec2"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{CORREO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="220" width="100" height="30" uuid="a1017b25-57f2-475a-bd40-137a4a743ef6">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<text><![CDATA[Carrera:]]></text>
+			</staticText>
+			<textField textAdjust="ScaleFont">
+				<reportElement positionType="Float" x="100" y="220" width="471" height="30" uuid="2974e5ff-dbe0-44fb-9c55-236c13077eb2"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{NOMBRE_CARRERA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="250" width="181" height="20" uuid="1cd7119d-d33a-4a7c-825b-907de690e1fd"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha de Ingreso a la Universidad:]]></text>
+			</staticText>
+			<textField textAdjust="ScaleFont">
+				<reportElement positionType="Float" x="0" y="270" width="181" height="31" uuid="49c493ef-caae-4732-8c82-2ba45f1a12f9"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("yyyy").format($F{FECHA_INGRESO_UNIVERSIDAD})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="181" y="250" width="139" height="20" uuid="774f0b4c-2763-4972-ab14-bb487b6d6c67"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[No. de Materias Cursadas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="320" y="250" width="251" height="20" uuid="62fce7f4-8700-451d-8aae-8aaae2282d9a"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total de Unidades Valorativas Adqueridas]]></text>
+			</staticText>
+			<textField textAdjust="ScaleFont">
+				<reportElement positionType="Float" x="181" y="270" width="139" height="31" uuid="9b0684b6-983b-4bec-9bf7-c51851393a9d"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{MATERIAS_CURSADAS_CANTIDAD}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="ScaleFont">
+				<reportElement positionType="Float" x="320" y="270" width="251" height="31" uuid="f6b8c5a0-6438-4215-9649-925cab5f6431"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{MATERIAS_CURSADAS_UV}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="-2" y="310" width="573" height="20" uuid="9611f872-b06c-4c36-ba4b-0346bb17e57e"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[II.        Datos unidad receptora]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="30" y="330" width="541" height="20" uuid="ff49e36c-6b29-4a25-b08c-e7318aa82df1"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[(Espacio reservado para responsable de la práctica profesional)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="350" width="280" height="20" uuid="af95b210-ea08-4ba2-adfe-626abf6d1bdd">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<text><![CDATA[Empresa:]]></text>
+			</staticText>
+			<textField textAdjust="ScaleFont">
+				<reportElement positionType="Float" x="0" y="370" width="280" height="31" uuid="b82a2787-99d2-4316-b18a-f0a8d8107609"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{NOMBRE_EMPRESA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="280" y="350" width="291" height="20" uuid="7db60223-7cce-4987-b5d0-e70d4c027511">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<text><![CDATA[Dirección:]]></text>
+			</staticText>
+			<textField textAdjust="ScaleFont">
+				<reportElement positionType="Float" x="280" y="370" width="291" height="31" uuid="4b918eef-5bf6-494b-90ea-0979cbd7b21d"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{UBICACION}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="401" width="120" height="20" uuid="7fadf200-d95a-4941-9b08-680b602f8953">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<text><![CDATA[Teléfono/ fax (503): ]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="120" y="401" width="160" height="20" uuid="06cdfff4-5e60-4ec3-b2b7-fc0d1b93c96e"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{TEL_EMPRESA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="280" y="401" width="69" height="20" uuid="fd537096-5304-4f51-abe9-492005f4ba41">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<text><![CDATA[Sitio web:]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="349" y="401" width="222" height="20" uuid="00390e1b-c6d0-4502-a5d5-be4e6ff8beca"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{SITIO_WEB}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="421" width="280" height="20" uuid="70ab5808-4b5b-47b2-82b7-ab3e35c334b7">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<text><![CDATA[Programa:]]></text>
+			</staticText>
+			<textField textAdjust="ScaleFont">
+				<reportElement positionType="Float" x="0" y="441" width="280" height="39" uuid="18cbff86-1ee6-4a7b-913e-8373024e998d"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{NOMBRE_PROGRAMA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="280" y="421" width="291" height="20" uuid="0297f51e-8a95-41db-bd2e-b833c241b20a">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<text><![CDATA[Responsable del programa:]]></text>
+			</staticText>
+			<textField textAdjust="ScaleFont">
+				<reportElement positionType="Float" x="280" y="441" width="291" height="39" uuid="fbe9763b-a543-49d4-8a75-c47422fc779f"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{NOMBRE_RESPONSABLE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="480" width="280" height="20" uuid="7aa5bc64-2e3d-4462-902e-5086327186b9">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<text><![CDATA[Área de realización:]]></text>
+			</staticText>
+			<textField textAdjust="ScaleFont">
+				<reportElement positionType="Float" x="0" y="500" width="280" height="30" uuid="5df714b4-2341-45d0-ae8c-21c3349a65b5"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{AREA_REALIZACION}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="280" y="480" width="291" height="20" uuid="c47e4492-5daa-446e-b97f-240bbe5fdb67">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<text><![CDATA[Otros detalles:]]></text>
+			</staticText>
+			<textField textAdjust="ScaleFont">
+				<reportElement positionType="Float" x="280" y="500" width="291" height="30" uuid="f6d83aca-face-49ca-93a5-fb89a472fbb3"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{OTROS_DETALLES}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="530" width="131" height="22" uuid="ba76989a-c2ea-454a-8266-1894bd36215e">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Bottom">
+					<font isBold="true"/>
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<text><![CDATA[Observaciones:]]></text>
+			</staticText>
+			<textField textAdjust="ScaleFont">
+				<reportElement positionType="Float" x="0" y="552" width="571" height="49" uuid="86a17e62-e033-44bb-bc64-51cdb83575fc"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{OBSERVACIONES}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="0" y="601" width="571" height="30" uuid="15f15609-b5a4-4c9e-9e36-22d3d547b82a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["San Salvador, "  + new SimpleDateFormat( "dd/MM/yyyy" ).format(new Date())]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="20" y="660" width="187" height="31" uuid="2b5e35d0-f2f5-4a63-9c11-505b92b113f1"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Responsable de Práctica Profesional]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="310" y="658" width="230" height="31" uuid="b05314a1-e7c7-4fa7-8a46-4d5505d02033"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Director de escuela]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="30" y="730" width="160" height="22" uuid="593d2cfb-0156-4dce-a643-c97bb2cd8d47"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Alumno(a)]]></text>
+			</staticText>
+			<textField textAdjust="ScaleFont">
+				<reportElement positionType="Float" x="181" y="121" width="229" height="39" uuid="f14ad052-922d-4b3b-a227-e198299d2695">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NOMBRE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

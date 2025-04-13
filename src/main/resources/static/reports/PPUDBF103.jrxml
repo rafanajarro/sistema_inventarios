@@ -1,0 +1,627 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PPUDBF02" pageWidth="612" pageHeight="792" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="9dfeb747-af47-4b61-9889-81e90992aac9">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MSSQL_PASANTIAS_INDUSTRIAL"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.report.description" value=""/>
+	<parameter name="ID_PASANTIA" class="java.lang.String"/>
+	<parameter name="ID_CARRERA" class="java.lang.String"/>
+	<parameter name="CARNET" class="java.lang.String"/>
+	<parameter name="PROGRAMA" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT FORMAT( P.CORRELATIVO,'000') AS CORRELATIVO,
+	PR.ID_PROGRAMA,
+	C."COD_CARRERA",
+	P."CARNET" AS CARNET,
+	CONCAT( E.NOMBRES,' ',E.APELLIDOS) AS NOMBRE,
+	E."TELEFONO",
+	E."TELEFONO2",
+	E."CORREO",
+	CONCAT( '[',c.COD_CARRERA,'] ',c.DESCRIPCION) AS NOMBRE_CARRERA,
+	P."ANIO_ESTUDIANTE",
+	EM."NOMBRE" AS NOMBRE_EMPRESA,
+	EM."UBICACION",
+	EM."SITIO_WEB",
+	EM."TELEFONO" AS TEL_EMPRESA,
+	PR."NOMBRE_PROGRAMA",
+	PR."NOMBRE_RESPONSABLE",
+	PR."AREA_REALIZACION",
+	PR."OTROS_DETALLES",
+	PR."OBSERVACIONES",
+	PR."FECHA_INI",
+	PR."FECHA_FIN",
+	RR.DESCRIPCION, 
+	PR.TEL_RESPONSABLE, 
+	PR.CORREO_RESPONSABLE,
+	(select  sum(m.horas) from MATERIA M where M.ID_MATERIA = 	PR.ID_MATERIA) AS HORAS_TOTAL
+FROM "PASANTIA" P
+	INNER JOIN "ESTUDIANTE" E ON 
+	  ( 
+	 E."CARNET" = P."CARNET") 
+	INNER JOIN "CARRERA" C ON 
+	  ( 
+	 C."ID_CARRERA" = P."ID_CARRERA") 
+	INNER JOIN "PASANTIA_PROGRAMA" PP ON 
+	  ( 
+	 PP."ID_PASANTIA" = P."ID_PASANTIA") 
+	INNER JOIN "PROGRAMA" PR ON 
+	  ( 
+	 PR."ID_PROGRAMA" = PP."ID_PROGRAMA") 
+	LEFT JOIN "EMPRESA" EM ON 
+	  ( 
+	 EM."ID_EMPRESA" = PR."ID_EMPRESA") 
+	LEFT JOIN "RUBRO_EMPRESA" RR ON 
+	(
+		RR.ID_RUBRO = EM.ID_RUBRO
+	)
+ 	LEFT JOIN "MATERIA" MT ON 
+	  ( 
+	 MT."ID_MATERIA" = PR."ID_MATERIA" 
+	 AND MT."ID_CARRERA" = P."ID_CARRERA") 
+WHERE 
+	 P."CARNET" = $P{CARNET} 
+	 AND P."ID_PASANTIA" = $P{ID_PASANTIA} 
+	 AND P."ID_CARRERA" = $P{ID_CARRERA} ]]>
+	</queryString>
+	<field name="CORRELATIVO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="CORRELATIVO"/>
+		<property name="com.jaspersoft.studio.field.label" value="CORRELATIVO"/>
+	</field>
+	<field name="ID_PROGRAMA" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="ID_PROGRAMA"/>
+		<property name="com.jaspersoft.studio.field.label" value="ID_PROGRAMA"/>
+	</field>
+	<field name="COD_CARRERA" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="COD_CARRERA"/>
+		<property name="com.jaspersoft.studio.field.label" value="COD_CARRERA"/>
+	</field>
+	<field name="CARNET" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="CARNET"/>
+		<property name="com.jaspersoft.studio.field.label" value="CARNET"/>
+	</field>
+	<field name="NOMBRE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="NOMBRE"/>
+		<property name="com.jaspersoft.studio.field.label" value="NOMBRE"/>
+	</field>
+	<field name="TELEFONO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="TELEFONO"/>
+		<property name="com.jaspersoft.studio.field.label" value="TELEFONO"/>
+	</field>
+	<field name="TELEFONO2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="TELEFONO2"/>
+		<property name="com.jaspersoft.studio.field.label" value="TELEFONO2"/>
+	</field>
+	<field name="CORREO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="CORREO"/>
+		<property name="com.jaspersoft.studio.field.label" value="CORREO"/>
+	</field>
+	<field name="NOMBRE_CARRERA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="NOMBRE_CARRERA"/>
+		<property name="com.jaspersoft.studio.field.label" value="NOMBRE_CARRERA"/>
+	</field>
+	<field name="ANIO_ESTUDIANTE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ANIO_ESTUDIANTE"/>
+		<property name="com.jaspersoft.studio.field.label" value="ANIO_ESTUDIANTE"/>
+	</field>
+	<field name="NOMBRE_EMPRESA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="NOMBRE_EMPRESA"/>
+		<property name="com.jaspersoft.studio.field.label" value="NOMBRE_EMPRESA"/>
+	</field>
+	<field name="UBICACION" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="UBICACION"/>
+		<property name="com.jaspersoft.studio.field.label" value="UBICACION"/>
+	</field>
+	<field name="SITIO_WEB" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="SITIO_WEB"/>
+		<property name="com.jaspersoft.studio.field.label" value="SITIO_WEB"/>
+	</field>
+	<field name="TEL_EMPRESA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="TEL_EMPRESA"/>
+		<property name="com.jaspersoft.studio.field.label" value="TEL_EMPRESA"/>
+	</field>
+	<field name="NOMBRE_PROGRAMA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="NOMBRE_PROGRAMA"/>
+		<property name="com.jaspersoft.studio.field.label" value="NOMBRE_PROGRAMA"/>
+	</field>
+	<field name="NOMBRE_RESPONSABLE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="NOMBRE_RESPONSABLE"/>
+		<property name="com.jaspersoft.studio.field.label" value="NOMBRE_RESPONSABLE"/>
+	</field>
+	<field name="AREA_REALIZACION" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="AREA_REALIZACION"/>
+		<property name="com.jaspersoft.studio.field.label" value="AREA_REALIZACION"/>
+	</field>
+	<field name="OTROS_DETALLES" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="OTROS_DETALLES"/>
+		<property name="com.jaspersoft.studio.field.label" value="OTROS_DETALLES"/>
+	</field>
+	<field name="OBSERVACIONES" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="OBSERVACIONES"/>
+		<property name="com.jaspersoft.studio.field.label" value="OBSERVACIONES"/>
+	</field>
+	<field name="FECHA_INI" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="FECHA_INI"/>
+		<property name="com.jaspersoft.studio.field.label" value="FECHA_INI"/>
+	</field>
+	<field name="FECHA_FIN" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="FECHA_FIN"/>
+		<property name="com.jaspersoft.studio.field.label" value="FECHA_FIN"/>
+	</field>
+	<field name="DESCRIPCION" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="DESCRIPCION"/>
+		<property name="com.jaspersoft.studio.field.label" value="DESCRIPCION"/>
+	</field>
+	<field name="TEL_RESPONSABLE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="TEL_RESPONSABLE"/>
+		<property name="com.jaspersoft.studio.field.label" value="TEL_RESPONSABLE"/>
+	</field>
+	<field name="CORREO_RESPONSABLE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="CORREO_RESPONSABLE"/>
+		<property name="com.jaspersoft.studio.field.label" value="CORREO_RESPONSABLE"/>
+	</field>
+	<field name="HORAS_TOTAL" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="HORAS_TOTAL"/>
+		<property name="com.jaspersoft.studio.field.label" value="HORAS_TOTAL"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="752" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<printWhenExpression><![CDATA[($P{PROGRAMA}  == null || $P{PROGRAMA}.isEmpty())?true: $P{PROGRAMA}.equals( $F{ID_PROGRAMA}.toString() )]]></printWhenExpression>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="0" width="217" height="31" uuid="b6720379-0c2a-4734-96b4-93084a8e76cc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Formulario PP-UDB-FI-03]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="217" y="0" width="120" height="30" uuid="3a1be6cd-3b58-4e61-9e63-15132587f8e6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Práctica Profesional No.]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="337" y="0" width="21" height="21" uuid="8ba5c5a6-ebbc-4969-b5ac-19aef56101a7"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{COD_CARRERA}.toString().charAt(0)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="358" y="0" width="21" height="21" uuid="e3bed6f0-7d81-47fe-8d5a-0f8bcbe55de9"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{COD_CARRERA}.toString().charAt(1)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="379" y="0" width="21" height="21" uuid="1cb54674-5203-4d16-89b8-c6c5e9cf10d9"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{COD_CARRERA}.toString().charAt(2)]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="400" y="0" width="21" height="21" uuid="5fd6ec68-1463-4f13-a741-31512bb7ba0f"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="421" y="0" width="21" height="21" uuid="44241c16-831b-4361-a46f-ce76f59a7950"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{CORRELATIVO}.charAt(0)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="442" y="0" width="21" height="21" uuid="144d0ade-05d8-426f-a55b-28b3fa20ca39"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{CORRELATIVO}.charAt(1)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="463" y="0" width="21" height="21" uuid="3499a1c7-506e-4633-8f18-9e7f1e9034a4"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{CORRELATIVO}.charAt(2)]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="484" y="0" width="21" height="21" uuid="48f6e50a-bd66-4482-9e70-3bb53a14c693"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="505" y="0" width="21" height="21" uuid="6e92b06e-5f04-43f9-8bbc-21f8267bc617"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ANIO_ESTUDIANTE}.charAt(0)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="527" y="0" width="21" height="21" uuid="d9564c19-8d74-46c6-9a95-16c9424f15b7"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ANIO_ESTUDIANTE}.charAt(1)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="548" y="0" width="21" height="21" uuid="d5564864-74bc-48bd-b440-7f2d4385d410"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ANIO_ESTUDIANTE}.charAt(2)]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement positionType="Float" x="337" y="25" width="232" height="1" uuid="4a7921d6-7d97-4780-a78e-f121f08c176d"/>
+				<graphicElement>
+					<pen lineWidth="4.0"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement positionType="Float" x="90" y="31" width="390" height="49" uuid="480e60ed-f057-4c9b-b8ed-4980c163fce7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONFIRMACIÓN DE ADMISION DE PRÁCTICA PROFESIONAL POR PARTE DE LA UNIDAD DE LA UNIDAD RECEPTORA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="80" width="571" height="30" uuid="d91624d7-c83f-4c4d-ada1-2e4f422b7112">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true" isItalic="false"/>
+					<paragraph leftIndent="20"/>
+				</textElement>
+				<text><![CDATA[DATOS DE LA EMPRESA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" stretchType="ElementGroupHeight" x="50" y="111" width="476" height="19" uuid="613c615a-ffcb-4c33-8ea2-ab2dd8b4f095">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<text><![CDATA[EMPRESA:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="21" y="530" width="530" height="70" uuid="7cb56d82-f223-435b-98c4-b1f579691c54">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font isBold="false"/>
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["La empresa ha accedido a admintir en calidad de estudiante en práctica profesional. al (a la) alumno(a): " +  $F{NOMBRE} +  "  , para que realizce su práctica profesional, conrrespondiente a " + $F{HORAS_TOTAL} + " hrs, en la que debe desempenarse proporcionando sus servicios de manara presencial siendo monitoreado por un supervisor o por el responsable del programa en el que participará. "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="0" y="600" width="571" height="30" uuid="15f15609-b5a4-4c9e-9e36-22d3d547b82a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["San Salvador, "  + new SimpleDateFormat( "dd/MM/yyyy" ).format(new Date())]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="20" y="690" width="187" height="31" uuid="2b5e35d0-f2f5-4a63-9c11-505b92b113f1"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[RESPONSABLE DEL PROGRAMA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="310" y="690" width="230" height="31" uuid="b05314a1-e7c7-4fa7-8a46-4d5505d02033"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[JEFE DE UNIDAD]]></text>
+			</staticText>
+			<textField textAdjust="ScaleFont" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="50" y="130" width="476" height="30" uuid="f14ad052-922d-4b3b-a227-e198299d2695">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NOMBRE_EMPRESA}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="ScaleFont" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="50" y="180" width="476" height="40" uuid="efbed9c1-e8f0-415d-8c2e-dd9d07ae8386">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DESCRIPCION}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" stretchType="ElementGroupHeight" x="50" y="160" width="476" height="19" uuid="eeef137c-2164-4a4c-8a8f-f9642e556020">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<text><![CDATA[ACTIVIDAD PRINCIPAL:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" stretchType="ElementGroupHeight" x="50" y="220" width="476" height="19" uuid="6625432d-5db2-4840-9a0d-55ce150b20fb">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<text><![CDATA[DIRECCIÓN]]></text>
+			</staticText>
+			<textField textAdjust="ScaleFont" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="50" y="239" width="476" height="31" uuid="2fd475fe-1701-4029-804e-833022860f0b">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{UBICACION}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" stretchType="ElementGroupHeight" x="50" y="270" width="476" height="19" uuid="f45c0225-f95b-4d7c-9601-2ec3ff7069cd">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<text><![CDATA[TELÉFONO / FAX:]]></text>
+			</staticText>
+			<textField textAdjust="ScaleFont" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="50" y="289" width="476" height="20" uuid="e69b1a95-7882-484f-982b-ae761c8643c5">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TEL_EMPRESA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" stretchType="ElementGroupHeight" x="50" y="309" width="476" height="19" uuid="2101a6e5-cc0d-4687-8d89-6cdfd73450c4">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<text><![CDATA[NOMBRE SUPERVISOR*:]]></text>
+			</staticText>
+			<textField textAdjust="ScaleFont" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="50" y="328" width="476" height="32" uuid="1db98a23-2ad7-44e1-9592-e8896eca0206">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NOMBRE_RESPONSABLE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" stretchType="ElementGroupHeight" x="50" y="399" width="476" height="19" uuid="b6c43dad-c217-429a-82e7-fa659c9abb02">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<text><![CDATA[EMAIL SUPERVISOR:
+]]></text>
+			</staticText>
+			<textField textAdjust="ScaleFont" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="50" y="418" width="476" height="32" uuid="ac2aab24-ca70-43bc-aa74-91b69cb7fee2">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CORREO_RESPONSABLE}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="ScaleFont" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="50" y="469" width="476" height="32" uuid="8290414a-1340-4926-9141-ee0bfe4d4f63">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{AREA_REALIZACION}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" stretchType="ElementGroupHeight" x="50" y="450" width="476" height="19" uuid="5a3b7a21-0765-407c-8af8-7d2237d9091f">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<text><![CDATA[ÁREA DONDE REALIZARÁ LA PRÁCTICA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" stretchType="ElementGroupHeight" x="50" y="360" width="476" height="19" uuid="1ac80979-787b-4c10-bc50-41a5ec70706b">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<text><![CDATA[TELÉFONO/FAX SUPERVISOR*:]]></text>
+			</staticText>
+			<textField textAdjust="ScaleFont" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="50" y="379" width="476" height="20" uuid="8278a1c8-398e-4a0d-b574-fc5358d246d4">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TEL_RESPONSABLE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
