@@ -27,19 +27,19 @@ public class RolUsuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_ROL")
-    private Integer ID_ROL;
+    private Integer idRol;
 
     @Column(name = "DESCRIPCION", length = 25, nullable = false)
-    private String DESCRIPCION;
+    private String descripcion;
 
     @Column(name = "ESTADO", length = 1, nullable = false)
-    private String ESTADO;
+    private String estado;
 
     @CreationTimestamp
     @Column(name = "FECHA_CREA", nullable = false)
-    private LocalDateTime FECHA_CREA;
+    private LocalDateTime fechaCrea;
 
     @UpdateTimestamp
     @Column(name = "FECHA_MOD", nullable = true)
-    private LocalDateTime FECHA_MOD;
+    private LocalDateTime fechaMod;
 }

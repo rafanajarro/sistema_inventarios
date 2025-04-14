@@ -46,8 +46,7 @@ public class EmpresaController {
     @GetMapping("/empresa")
     public String listarEmpresa(Model model) {
         List<Empresa> empresa = empresaService.obtenerTodos();
-        model.addAttribute("empresa", empresa);
-        logger.info("empresa:" + empresa);
+        model.addAttribute("empresa", empresa);        
         return "empresas/listar_empresa";
     }
 
@@ -121,13 +120,23 @@ public class EmpresaController {
             Path filePath = Paths.get(uploadDir).resolve(filename).normalize();
             Resource resource = new UrlResource(filePath.toUri());
 
-            if (!resource.exists()) {
-                throw new RuntimeException("Archivo no encontrado: " + filename);
-            }
+            if (resource.exists() && resource.isReadable()) {
+                return ResponseEntity.ok()
+                        .contentType(MediaType.IMAGE_JPEG)
+                        .body(resource);
+            } else {
+                // Imagen por defecto
+                Path defaultImagePath = Paths.get(uploadDir).resolve("11244147.jpg").normalize();
+                Resource defaultResource = new UrlResource(defaultImagePath.toUri());
 
-            return ResponseEntity.ok()
-                    .contentType(MediaType.IMAGE_JPEG)
-                    .body(resource);
+                if (defaultResource.exists() && defaultResource.isReadable()) {
+                    return ResponseEntity.ok()
+                            .contentType(MediaType.IMAGE_JPEG)
+                            .body(defaultResource);
+                } else {
+                    return ResponseEntity.notFound().build();
+                }
+            }
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
@@ -152,8 +161,8 @@ public class EmpresaController {
             Empresa empresaExistente = empresaService.obtenerPorId(id);
             if (empresaExistente == null) {
                 return "redirect:/empresa";
-            }            
-            
+            }
+
             if (passwordEncoder.matches(empresa.getPassword(), empresaExistente.getPassword())) {
                 // Obtener usuario logueado
                 // Authentication authentication =

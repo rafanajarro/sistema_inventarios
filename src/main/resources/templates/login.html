@@ -17,8 +17,8 @@
                         <!-- Nested Row within Card Body -->
                         <div class="row">
                             <div class="col-lg-6 d-none d-lg-block bg-login-image">
-                                <img th:src="@{/images/11244147.jpg}" alt="Logo por defecto"
-                                    class="img-fluid border rounded-3 shadow-sm p-2" />
+                                <img th:src="@{/images/{img}(img=${'11244147.jpg'})}" alt="Logo de la empresa"
+                                    class="img-fluid border rounded-3 shadow-sm p-2 w-100">
                             </div>
 
                             <div class="col-lg-6">
@@ -78,6 +78,32 @@
         </div>
     </div>
     <script th:src="@{/js/alertFade.js}"></script>
+
+    <script>
+        $(document).ready(() => {
+            $('#idCarrera').on("change", function () {
+                $.ajax({
+                    url: "/pasantias/obtenerCarrera/" + this.value,
+                    type: "GET",
+                    success: function (data) {
+                        // Actualizar el input con el código
+                        document.querySelector("#num-carrera").value = data.codCarrera;
+
+                        // Actualizar la imagen
+                        const imgElement = document.querySelector("#imagen-carrera");
+                        imgElement.src = "/images/" + data.imagen;
+
+                        // Si falla la carga de imagen, mostrar la por defecto
+                        imgElement.onerror = function () {
+                            this.onerror = null;
+                            this.src = "/images/default.jpg";
+                        };
+                    }
+                });
+            });
+        });
+
+    </script>
 </body>
 
 </html>

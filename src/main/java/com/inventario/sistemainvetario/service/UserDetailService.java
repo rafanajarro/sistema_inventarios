@@ -28,7 +28,7 @@ public class UserDetailService implements UserDetailsService {
         List<GrantedAuthority> authorities = new ArrayList<>();
 
         String roleName = null;
-        switch (usuario.getIdRol().getID_ROL()) {
+        switch (usuario.getIdRol().getIdRol()) {
             case 1:
                 roleName = "ROLE_ADMIN";
                 break;

@@ -1,0 +1,136 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/header :: header(title = 'Usuarios')">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="wrapper">
+        <div th:replace="fragments/sidebar :: sidebar"></div>
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Main Content -->
+            <div id="content">
+                <div class="container form-container p-3">
+                    <h1 th:text="${#strings.isEmpty(usuarios.idUsuario) ? 'Crear empleado' : 'Editar empleado'}"
+                        class="h3 mb-4 text-gray-800"></h1>
+
+                    <div th:if="${mensaje}"
+                        th:classappend="${tipoMensaje == 'success' ? 'alert alert-success alert-dismissible fade show' : 'alert alert-danger alert-dismissible fade show'}"
+                        role="alert">
+                        <span th:text="${mensaje}"></span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <form
+                        th:action="@{${usuarios.idUsuario == null} ? '/usuarios' : '/usuarios/editar/' + ${usuarios.idUsuario} }"
+                        th:object="${usuarios}" method="post" enctype="multipart/form-data">
+
+                        <div class="mb-3">
+                            <label for="nombres" class="form-label">Nombres</label>
+                            <input type="text" id="nombres" name="nombres" class="form-control" th:field="*{nombres}"
+                                required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="apellidos" class="form-label">Apellidos</label>
+                            <input type="text" id="apellidos" name="apellidos" class="form-control"
+                                th:field="*{apellidos}" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Contraseña</label>
+                            <input type="password" id="password" name="password" class="form-control"
+                                th:field="*{password}">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" id="username" name="username" class="form-control" th:field="*{username}"
+                                required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="correo" class="form-label">Correo</label>
+                            <input type="email" id="correo" name="correo" class="form-control" th:field="*{correo}"
+                                required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="idRol" class="form-label">Rol</label>
+                            <select id="idRol" name="idRol" class="form-control select-2" th:field="*{idRol}" required>
+                                <option value="" disabled selected>Seleccione un rol</option>
+                                <option th:each="rol : ${roles}" th:value="${rol.idRol}" th:text="${rol.descripcion}">
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="dui" class="form-label">DUI</label>
+                            <input type="text" id="dui" name="dui" class="form-control" th:field="*{dui}" maxlength="10"
+                                required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Teléfono</label>
+                            <input type="text" th:field="*{telefono}" class="form-control" placeholder="Ej: 1234-5678"
+                                maxlength="9" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="fotoEmpleado">Foto</label>
+                            <input type="file" id="fotoEmpleado" name="fotoEmpleado" class="form-control"
+                                accept=".png, .jpg, .jpeg">
+                        </div>
+
+                        <button type="submit" class="btn btn-success">Guardar</button>
+                        <a href="/usuarios" class="btn btn-secondary">Cancelar</a>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="fragments/jsComponents :: jsScripts"></div>
+    <script>
+        function formatPhoneInput(event) {
+            let input = event.target;
+            let value = input.value.replace(/[^0-9]/g, "");
+            if (value.length > 4) {
+                value = value.slice(0, 4) + "-" + value.slice(4);
+            }
+            input.value = value;
+        }
+        function formatCustomInput(event) {
+            let input = event.target;
+            let value = input.value.replace(/[^0-9]/g, "");
+
+            if (value.length > 8) {
+                value = value.slice(0, 8) + "-" + value.slice(8);
+            }
+
+            input.value = value;
+        }
+
+        document.getElementById("telefono").addEventListener("input", formatPhoneInput);
+        document.getElementById("dui").addEventListener("input", formatCustomInput);
+
+        // Validacion imagen
+        document.getElementById("fotoEmpleado").addEventListener("change", function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const validExtensions = ["image/png", "image/jpeg"];
+                if (!validExtensions.includes(file.type)) {
+                    alert("Solo se permiten archivos PNG o JPG.");
+                    event.target.value = "";
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

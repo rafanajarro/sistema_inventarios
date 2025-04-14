@@ -29,4 +29,8 @@ public class RolUsuarioService {
     public void eliminar(Integer id) {
         rolUsuarioRepository.deleteById(id);
     }
+
+    public List<RolUsuario> obtenerRolesActivos() {
+        return rolUsuarioRepository.encontrarRolesActivos("A");
+    }
 }

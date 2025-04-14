@@ -1,9 +1,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments/header :: header(title = 'Inicio')">
+<head th:replace="fragments/header :: header(title = 'Usuarios')">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Empresa</title>
+    <title>Document</title>
 </head>
 
 <body>
@@ -13,11 +13,8 @@
         <div id="content-wrapper" class="d-flex flex-column">
             <!-- Main Content -->
             <div id="content">
-                <div class="card border-0 shadow-sm rounded-4 mb-4 p-5 pt-5">
-                    <div class="card-header bg-white border-bottom rounded-top-4 px-4 py-3">
-                        <h5 class="mb-0 text-primary fw-semibold">Información de la Empresa</h5>
-                    </div>
-
+                <div class="container-fluid p-4">
+                    <h1 class="h3 mb-4 text-gray-800">Información de la Empresa</h1>
                     <div th:if="${#lists.size(empresa) > 0}" th:each="em : ${empresa}" class="mt-3">
                         <div th:if="${em.idEmpresa != null}">
                             <a th:href="@{/empresa/editar/{id}(id=${em.idEmpresa})}"
@@ -76,7 +73,6 @@
                             </button>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

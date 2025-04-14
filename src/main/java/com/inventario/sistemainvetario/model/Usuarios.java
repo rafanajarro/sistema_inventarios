@@ -44,6 +44,15 @@ public class Usuarios {
     @Column(name = "ESTADO", nullable = false)
     private String estado;
 
+    @Column(name = "FOTO", nullable = false)
+    private String foto;
+
+    @Column(name = "DUI", nullable = false, length = 10)
+    private String dui;
+
+    @Column(name = "TELEFONO", nullable = false, length = 9)
+    private String telefono;
+
     @CreationTimestamp
     @Column(name = "FECHA_CREA", nullable = false)
     private LocalDateTime fechaCrea;

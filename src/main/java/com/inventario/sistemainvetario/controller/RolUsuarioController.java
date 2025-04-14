@@ -14,99 +14,89 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.inventario.sistemainvetario.model.Empresa;
 import com.inventario.sistemainvetario.model.RolUsuario;
 import com.inventario.sistemainvetario.service.RolUsuarioService;
 
 @Controller
-@RequestMapping("/roles")
 public class RolUsuarioController {
     @Autowired
     private RolUsuarioService rolUsuarioService;
 
     // Mostrar roles
-    @GetMapping("/obtenerTodos")
+    @GetMapping("/roles")
     public String listarTodos(Model model) {
-
         List<RolUsuario> roles = rolUsuarioService.obtenerTodos();
-
         model.addAttribute("roles", roles);
-
         return "rol/listado_roles";
     }
 
     // Form nuevo rol
-    @GetMapping("/nuevo")
+    @GetMapping("/roles/nuevo")
     public String mostrarFormularioRol(Model model) {
         model.addAttribute("rol", new RolUsuario());
-        return "rol/creareditarrol";
+        return "rol/crear_editar_rol";
     }
 
     // Guardar rol
-    @PostMapping("/crear")
+    @PostMapping("/roles/crear")
     public String guardarRol(@ModelAttribute RolUsuario rol, RedirectAttributes redirectAttributes) {
         try {
-            //rolUsuarioService.crearRol(rol);
+            rolUsuarioService.guardar(rol);
             redirectAttributes.addFlashAttribute("mensaje", "El rol se guardó correctamente.");
             redirectAttributes.addFlashAttribute("tipoMensaje", "success");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("mensaje", "Ocurrió un error al guardar el rol.");
             redirectAttributes.addFlashAttribute("tipoMensaje", "error");
         }
-        return "redirect:/roles/obtenerTodos";
+        return "redirect:/roles";
     }
 
     // Editar rol
-    @PostMapping("/editar/{id}")
+    @PostMapping("/roles/editar/{id}")
     public String editarRol(@PathVariable int id, RedirectAttributes redirectAttributes,
             @ModelAttribute RolUsuario rol) {
-        /*try {
-            Optional<RolUsuario> optional = rolUsuarioService.obtenerDataModificar(id);
-
-            if (optional.isPresent()) {
-                RolUsuario rolExistente = optional.orElse(new RolUsuario());
-                rolExistente.setDESCRIPCION(rol.getDESCRIPCION());
-                rolExistente.setESTADO(rol.getESTADO());
-                rolUsuarioService.modificarRol(rolExistente);
-                redirectAttributes.addFlashAttribute("mensaje", "El rol se editó correctamente.");
-                redirectAttributes.addFlashAttribute("tipoMensaje", "success");
-                return "redirect:/roles/obtenerTodos";
+        try {
+            RolUsuario rolUsuario = rolUsuarioService.obtenerPorId(id);
+            if (rolUsuario == null) {
+                return "redirect:/roles";
             }
+            rolUsuario.setDescripcion(rol.getDescripcion());
+            rolUsuario.setEstado(rol.getEstado());
+            rolUsuarioService.guardar(rolUsuario);
+            redirectAttributes.addFlashAttribute("mensaje", "El rol se editó correctamente.");
+            redirectAttributes.addFlashAttribute("tipoMensaje", "success");
+            return "redirect:/roles";
 
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("mensaje", "Ocurrió un error al editar el rol.");
             redirectAttributes.addFlashAttribute("tipoMensaje", "error");
-        }*/
-        return "redirect:/roles/obtenerTodos";
+        }
+        return "redirect:/roles";
     }
 
     // Form editar rol
-    @GetMapping("/editar/{id}")
+    @GetMapping("/roles/editar/{id}")
     public String editarRolForm(@PathVariable int id, Model model) {
-        /*try {
-            Optional<RolUsuario> rol = rolUsuarioService.obtenerDataModificar(id);
-
-            if (rol.isPresent()) {
-                model.addAttribute("rol", rol.get());
-            }
-
-            return "rol/creareditarrol";
-        } catch (Exception e) {
-            return "redirect:/roles/obtenerTodos";
-        }*/
-        return "redirect:/roles/obtenerTodos";
+        RolUsuario rolUsuario = rolUsuarioService.obtenerPorId(id);
+        if (rolUsuario == null) {
+            return "redirect:/roles";
+        }
+        model.addAttribute("rol", rolUsuario);
+        return "rol/crear_editar_rol";
     }
 
     // Eliminar rol
-    @GetMapping("/eliminar/{id}")
+    @GetMapping("/roles/eliminar/{id}")
     public String eliminarParametro(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
-        /*try {
-            rolUsuarioService.eliminarRol(id);
+        try {
+            rolUsuarioService.eliminar(id);
             redirectAttributes.addFlashAttribute("mensaje", "El rol se eliminó correctamente.");
             redirectAttributes.addFlashAttribute("tipoMensaje", "success");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("mensaje", "Ocurrió un error al eliminar el rol.");
             redirectAttributes.addFlashAttribute("tipoMensaje", "error");
-        }*/
-        return "redirect:/roles/obtenerTodos";
+        }
+        return "redirect:/roles";
     }
 }

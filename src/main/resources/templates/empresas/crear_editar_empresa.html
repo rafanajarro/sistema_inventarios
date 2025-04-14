@@ -15,7 +15,7 @@
             <div id="content">
                 <div class="container form-container p-3">
                     <h2 class="mb-4"
-                        th:text="${#strings.isEmpty(empresa.idEmpresa) ? 'Registrar Empresa' : 'Editar Empresa'}"></h2>
+                        th:text="${#strings.isEmpty(empresa.idEmpresa) ? 'Registrar empresa' : 'Editar empresa'}"></h2>
 
                     <div th:if="${mensaje}"
                         th:classappend="${tipoMensaje == 'success' ? 'alert alert-success alert-dismissible fade show' : 'alert alert-danger alert-dismissible fade show'}"
@@ -72,9 +72,11 @@
                             <label class="form-label">Contraseña</label>
                             <input type="password" th:field="*{password}" class="form-control">
                         </div>
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">Guardar información</button>
-                        </div>
+
+                        <button type="submit" class="btn btn-primary">Guardar información</button>
+                        <a href="/empresa" class="btn btn-secondary">Cancelar</a>
+
+
                     </form>
                 </div>
             </div>
