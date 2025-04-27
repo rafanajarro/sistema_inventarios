@@ -22,16 +22,57 @@
         body {
             margin: 0;
             font-family: 'Segoe UI', sans-serif;
+            transition: background-color 0.5s, color 0.5s;
         }
 
+        /* Tema Claro */
+        body.theme-light {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        /* Tema Oscuro */
+        body.theme-dark {
+            background-color: #1e1e2f;
+        }
+
+        /* Tema Azul */
+        body.theme-blue {
+            background-color: #001f3f;
+        }
+
+        /* Tema Verde */
+        body.theme-green {
+            background-color: #004d40;
+        }
+
+        /* Sidebar */
         .sidebar {
             height: 100vh;
             width: 250px;
-            background-color: #fff;
-            border-right: 1px solid #eee;
             padding-top: 1rem;
+            border-right: 1px solid #eee;
+            background-color: #fff;
+            transition: background-color 0.5s, color 0.5s, border-color 0.5s;
         }
 
+        /* Ajuste Sidebar por tema */
+        body.theme-dark .sidebar {
+            background-color: #2d2d3a;
+            border-color: #444;
+        }
+
+        body.theme-blue .sidebar {
+            background-color: #003366;
+            border-color: #004080;
+        }
+
+        body.theme-green .sidebar {
+            background-color: #00695c;
+            border-color: #00796b;
+        }
+
+        /* Nav Links dentro del Sidebar */
         .sidebar .nav-link {
             color: #6c757d;
             font-weight: 500;
@@ -39,8 +80,23 @@
             align-items: center;
             gap: 10px;
             padding: 10px 20px;
+            transition: background-color 0.3s, color 0.3s;
         }
 
+        /* Ajuste colores de los enlaces dentro del Sidebar */
+        body.theme-dark .sidebar .nav-link {
+            color: #ccc;
+        }
+
+        body.theme-blue .sidebar .nav-link {
+            color: #bbdefb;
+        }
+
+        body.theme-green .sidebar .nav-link {
+            color: #b2dfdb;
+        }
+
+        /* Hover y active dentro del Sidebar */
         .sidebar .nav-link:hover,
         .sidebar .nav-link.active {
             background-color: #eef2ff;
@@ -48,6 +104,26 @@
             color: #4f46e5;
         }
 
+        /* Hovers en tema oscuro, azul, verde */
+        body.theme-dark .sidebar .nav-link:hover,
+        body.theme-dark .sidebar .nav-link.active {
+            background-color: #444;
+            color: #ffffff;
+        }
+
+        body.theme-blue .sidebar .nav-link:hover,
+        body.theme-blue .sidebar .nav-link.active {
+            background-color: #004c99;
+            color: #ffffff;
+        }
+
+        body.theme-green .sidebar .nav-link:hover,
+        body.theme-green .sidebar .nav-link.active {
+            background-color: #00796b;
+            color: #ffffff;
+        }
+
+        /* Títulos (h6) dentro del Sidebar */
         .sidebar h6 {
             font-size: 0.75rem;
             font-weight: 700;
@@ -55,8 +131,16 @@
             color: #adb5bd;
             text-transform: uppercase;
             margin-top: 1rem;
+            transition: color 0.3s;
         }
 
+        body.theme-dark .sidebar h6,
+        body.theme-blue .sidebar h6,
+        body.theme-green .sidebar h6 {
+            color: #cccccc;
+        }
+
+        /* Marca (logo) */
         .brand-logo {
             font-weight: bold;
             font-size: 1.25rem;
@@ -65,12 +149,21 @@
             gap: 10px;
             padding: 0 20px;
             margin-bottom: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        body.theme-dark .brand-logo,
+        body.theme-blue .brand-logo,
+        body.theme-green .brand-logo {
+            color: #ffffff;
         }
 
         .brand-logo img {
             height: 32px;
         }
     </style>
+
+
 </head>
 
 <body>

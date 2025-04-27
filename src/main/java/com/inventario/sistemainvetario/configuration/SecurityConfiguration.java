@@ -11,17 +11,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 public class SecurityConfiguration {
-        // Confuguración de enrutamiento para el login
-        /*
-         * @Bean
-         * public WebSecurityCustomizer webSecurityCustomizer(){
-         * 
-         * return (web)-> web.ignoring().requestMatchers("/**");
-         * 
-         * }
-         */
 
-        @SuppressWarnings("removal")
         @Bean
         public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
                 http.authorizeHttpRequests(authorize -> authorize

@@ -1,6 +1,6 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments/header :: header(title = 'Usuarios')">
+<head th:replace="fragments/header :: header(title = 'Longitudes')">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
@@ -16,10 +16,10 @@
                 <div class="container-fluid p-4">
                     <div
                         class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                        <h1 class="h2">Usuarios</h1>
+                        <h1 class="h2">Medidas de longitud</h1>
                     </div>
-                    
-                    <a href="/usuarios/nuevo" class="btn btn-primary mb-3">Crear usuario</a>
+
+                    <a href="/longitud/nuevo" class="btn btn-primary mb-3">Crear nueva</a>
 
                     <div th:if="${mensaje}"
                         th:classappend="${tipoMensaje == 'success' ? 'alert alert-success alert-dismissible fade show' : 'alert alert-danger alert-dismissible fade show'}"
@@ -34,30 +34,19 @@
                         <table class="table table-striped" width="100%" cellspacing="0" id="dataTable">
                             <thead>
                                 <tr>
-                                    <th>#</th>
-                                    <th>Nombre</th>
-                                    <th>Apellido</th>
-                                    <th>Username</th>
-                                    <th>Correo</th>
+                                    <th>Titulo</th>
                                     <th>Operaciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="usuario, iter  : ${usuarios}">
-                                    <td th:text="${iter.index + 1}"></td>
-                                    <td th:text="${usuario.nombres}"></td>
-                                    <td th:text="${usuario.apellidos}"></td>
-                                    <td th:text="${usuario.username}"></td>
-                                    <td th:text="${usuario.correo}"></td>
+                                <tr th:each="long : ${longitudes}">
+                                    <td th:text="${long.titulo}"></td>
                                     <td>
-                                        <a th:href="@{/usuarios/perfil/{id}(id=${usuario.idUsuario})}">
-                                            <i class="fas fa-solid fa-eye" style="color: #085691;"></i></a>
-
-                                        <a th:href="@{/usuarios/editar/{id}(id=${usuario.idUsuario})}">
+                                        <a th:href="@{/longitud/editar/{id}(id=${long.idLongitud})}">
                                             <i class="fas fa-edit" style="color: #085691;"></i></a>
 
-                                        <a th:href="@{/usuarios/eliminar/{id}(id=${usuario.idUsuario})}"
-                                            onclick="return confirm('¿Estás seguro de que deseas eliminar este usuario?');">
+                                        <a th:href="@{/longitud/eliminar/{id}(id=${long.idLongitud})}"
+                                            onclick="return confirm('¿Estás seguro de que deseas eliminar este rol?');">
                                             <i class="fas fa-trash-alt" style="color: #085691;"></i></a>
                                     </td>
                                 </tr>

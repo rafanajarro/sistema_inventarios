@@ -1,6 +1,6 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments/header :: header(title = 'Roles')">
+<head th:replace="fragments/header :: header(title = 'Pesos')">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
@@ -16,8 +16,10 @@
                 <div class="container-fluid p-4">
                     <div
                         class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                        <h1 th:text="${#strings.isEmpty(rol.idRol) ? 'Crear rol' : 'Editar rol'}" class="h2"></h1>
+                        <h1 th:text="${#strings.isEmpty(pesos.idPeso) ? 'Crear medida' : 'Editar medida'}" class="h2"></h1>
+                        </h1>
                     </div>
+
 
                     <div th:if="${mensaje}"
                         th:classappend="${tipoMensaje == 'success' ? 'alert alert-success alert-dismissible fade show' : 'alert alert-danger alert-dismissible fade show'}"
@@ -28,30 +30,19 @@
                         </button>
                     </div>
 
-                    <form th:action="@{${rol.idRol == null ? '/roles/crear' : '/roles/editar/' + rol.idRol} }"
-                        th:object="${rol}" method="post">
+                    <form th:action="@{${pesos.idPeso == null ? '/peso/crear' : '/peso/editar/' + pesos.idPeso} }"
+                        th:object="${pesos}" method="post">
 
-                        <!-- Campo descripcion -->
+                        <!-- Campo titulo -->
                         <div class="mb-3">
-                            <label for="descripcion" class="form-label">Descripcion</label>
-                            <input type="text" id="descripcion" name="descripcion" class="form-control"
-                                th:field="*{descripcion}" required>
-                        </div>
-
-
-                        <!-- Campo Estado -->
-                        <div class="mb-3">
-                            <label for="estado" class="form-label">Estado</label>
-                            <select id="estado" name="estado" class="form-control" th:field="*{estado}" required>
-                                <option value="" disabled selected>Seleccionar...</option>
-                                <option value="A" th:selected="${rol.estado == 'A'}">Activo</option>
-                                <option value="I" th:selected="${rol.estado == 'I'}">Inactivo</option>
-                            </select>
+                            <label for="titulo" class="form-label">Titulo</label>
+                            <input type="text" id="titulo" name="titulo" class="form-control" th:field="*{titulo}"
+                                required>
                         </div>
 
                         <!-- Botones -->
                         <button type="submit" class="btn btn-success">Guardar</button>
-                        <a href="/roles" class="btn btn-secondary">Cancelar</a>
+                        <a href="/peso" class="btn btn-secondary">Cancelar</a>
                     </form>
 
                 </div>

@@ -14,8 +14,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "USUARIOS", schema = "dbo")
-public class Usuarios {
+@Table(name = "USUARIOS")
+public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,7 +62,7 @@ public class Usuarios {
     private LocalDateTime fechaMod;
 
     // Constructor con parámetros
-    public Usuarios(String nombres, String apellidos, String username, String password, String correo, RolUsuario idRol,
+    public Usuario(String nombres, String apellidos, String username, String password, String correo, RolUsuario idRol,
             String estado, LocalDateTime fechaCrea) {
         this.nombres = nombres;
         this.apellidos = apellidos;
