@@ -13,9 +13,13 @@
         <div id="content-wrapper" class="d-flex flex-column">
             <!-- Main Content -->
             <div id="content">
-                <div class="container form-container p-3">
-                    <h1 th:text="${#strings.isEmpty(usuarios.idUsuario) ? 'Crear empleado' : 'Editar empleado'}"
-                        class="h3 mb-4 text-gray-800"></h1>
+                <div class="container-fluid p-4">
+                    <div
+                        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 th:text="${#strings.isEmpty(usuarios.idUsuario) ? 'Crear empleado' : 'Editar empleado'}"
+                            class="h2"></h1>
+                    </div>
+
 
                     <div th:if="${mensaje}"
                         th:classappend="${tipoMensaje == 'success' ? 'alert alert-success alert-dismissible fade show' : 'alert alert-danger alert-dismissible fade show'}"

@@ -12,15 +12,41 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 public class SecurityConfiguration {
 
-    @SuppressWarnings("removal")
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        // Configuración sin login: permitir todas las peticiones
-        http.authorizeHttpRequests(authorize -> authorize
-                        .anyRequest().permitAll()) // ← Permitir todo temporalmente
-                .csrf().disable()
-                .cors().and()
-                .headers().frameOptions().sameOrigin();
+        @Bean
+        public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+                http.authorizeHttpRequests(authorize -> authorize
+                                .requestMatchers("/login", "/css/**", "/js/**", "/img/**", "/reports/**", "/vendor/**",
+                                                "/scss/**",
+                                                "/database/**", "/images/**")
+                                .permitAll().anyRequest().authenticated())
+                                .formLogin(form -> form.loginPage("/login").loginProcessingUrl("/access")
+                                                .defaultSuccessUrl("/inicio", true).failureUrl("/login?error=true")
+                                                .permitAll())
+                                .logout(
+                                                logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/login")
+                                                                .permitAll())
+                                .csrf().disable().cors().and().headers().frameOptions().sameOrigin();
+                ;
+
+                // Agrega un filtro personalizado para acceder al usuario autenticado
+
+                http.addFilterAfter((request, response, chain) -> {
+                        @SuppressWarnings("unused")
+                        String username = null;
+                        var authentication = SecurityContextHolder.getContext().getAuthentication();
+                        if (authentication != null && authentication.isAuthenticated()) {
+                                username = authentication.getName();
+                        }
+                        chain.doFilter(request, response);
+                }, UsernamePasswordAuthenticationFilter.class);
+
+                return http.build();
+        }
+
+        @Bean
+        public PasswordEncoder passwordEncoder() {
+                return new BCryptPasswordEncoder();
+        }
 
         /*
         // Configuración original con autenticación

@@ -1,6 +1,6 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments/header :: header(title = 'Usuarios')">
+<head th:replace="fragments/header :: header(title = 'Roles')">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
@@ -14,7 +14,11 @@
             <!-- Main Content -->
             <div id="content">
                 <div class="container-fluid p-4">
-                    <h1 class="h3 mb-4 text-gray-800">Usuarios</h1>
+                    <div
+                        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">Roles</h1>
+                    </div>
+
                     <a href="/roles/nuevo" class="btn btn-primary mb-3">Crear rol</a>
 
                     <div th:if="${mensaje}"
@@ -40,7 +44,7 @@
                             <tbody>
                                 <tr th:each="roles : ${roles}">
                                     <td th:text="${roles.descripcion}"></td>
-                                   <!--- <td th:text="${roles.idCarrera}"></td>--->
+                                    <!--- <td th:text="${roles.idCarrera}"></td>--->
                                     <td th:text="${roles.estado == 'A' ? 'Activo' : 'Inactivo'}"></td>
                                     <td th:text="${roles.fechaCrea}"></td>
                                     <td th:text="${roles.fechaMod}"></td>

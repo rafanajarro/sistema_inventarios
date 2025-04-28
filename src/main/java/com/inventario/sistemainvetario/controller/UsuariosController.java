@@ -30,7 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.inventario.sistemainvetario.model.RolUsuario;
-import com.inventario.sistemainvetario.model.Usuarios;
+import com.inventario.sistemainvetario.model.Usuario;
 import com.inventario.sistemainvetario.service.RolUsuarioService;
 import com.inventario.sistemainvetario.service.UsuarioService;
 
@@ -50,7 +50,7 @@ public class UsuariosController {
     // Listar usuarios
     @GetMapping("/usuarios")
     public String listarUsuarios(Model model) {
-        List<Usuarios> usuarios = usuarioService.obtenerTodos();
+        List<Usuario> usuarios = usuarioService.obtenerTodos();
         model.addAttribute("usuarios", usuarios);
         return "usuarios/listar_usuarios";
     }
@@ -60,13 +60,13 @@ public class UsuariosController {
     public String mostrarFormularioNuevoUsuario(Model model) {
         List<RolUsuario> rolesActivos = rolUsuarioService.obtenerRolesActivos();
         model.addAttribute("roles", rolesActivos);
-        model.addAttribute("usuarios", new Usuarios());
+        model.addAttribute("usuarios", new Usuario());
         return "usuarios/crear_editar_usuarios";
     }
 
     // Guardar usuarios
     @PostMapping("/usuarios")
-    public String guardarUsuario(@ModelAttribute Usuarios usuarios, RedirectAttributes redirectAttributes,
+    public String guardarUsuario(@ModelAttribute Usuario usuarios, RedirectAttributes redirectAttributes,
             Model model, @RequestParam(value = "fotoEmpleado", required = false) MultipartFile fotoEmpleado) {
         try {
             // Hashear la contraseña solo al crear el usuarios
@@ -140,7 +140,7 @@ public class UsuariosController {
     // Mostrar formulario para editar un usuarios
     @GetMapping("/usuarios/editar/{id}")
     public String mostrarFormularioModificarUsuario(@PathVariable Integer id, Model model) {
-        Usuarios usuarios = usuarioService.obtenerPorId(id);
+        Usuario usuarios = usuarioService.obtenerPorId(id);
         if (usuarios == null) {
             return "redirect:/usuarios";
         }
@@ -151,13 +151,24 @@ public class UsuariosController {
         return "usuarios/crear_editar_usuarios";
     }
 
+    // Perfil
+    @GetMapping("/usuarios/perfil/{id}")
+    public String mostrarPerfilUsuario(@PathVariable Integer id, Model model) {
+        Usuario usuarios = usuarioService.obtenerPorId(id);
+        if (usuarios == null) {
+            return "redirect:/usuarios";
+        }
+        model.addAttribute("usuarios", usuarios);
+        return "usuarios/perfil_usuarios";
+    }
+
     // Actualizar usuarios
     @PostMapping("/usuarios/editar/{id}")
-    public String actualizarUsuario(@PathVariable Integer id, @ModelAttribute Usuarios usuarios,
+    public String actualizarUsuario(@PathVariable Integer id, @ModelAttribute Usuario usuarios,
             RedirectAttributes redirectAttributes, Model model,
             @RequestParam(value = "fotoEmpleado", required = false) MultipartFile fotoEmpleado) {
         try {
-            Usuarios usuarioExistente = usuarioService.obtenerPorId(id);
+            Usuario usuarioExistente = usuarioService.obtenerPorId(id);
             if (usuarios == null) {
                 return "redirect:/usuarios";
             }

@@ -1,0 +1,84 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/header :: header(title = 'Usuarios')">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="wrapper">
+        <div th:replace="fragments/sidebar :: sidebar"></div>
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Main Content -->
+            <div id="content">
+                <div class="container-fluid p-4">
+                    <div class="row">
+                        <div class="col-md-4 border-end" style="border-right: 2px solid #dee2e6;">
+                            <div class="profile-sidebar overflow-hidden">
+                                <div class="profile-header p-4 d-flex flex-column align-items-center gap-3"
+                                    style="width: 80%; margin: 0 auto;">
+                                    <div class="profile-avatar"
+                                        style="width: 250px; height: 250px; overflow: hidden; border-radius: 50%;">
+                                        <img th:if="${usuarios.foto != null and !usuarios.foto.isEmpty()}"
+                                            th:src="@{/empleados/images/{img}(img=${usuarios.foto})}" alt=""
+                                            style="width: 100%; height: 100%; object-fit: cover;" />
+                                    </div>
+                                    <div>
+                                        <h2 class="fw-bold fs-4 mb-0"
+                                            th:text="${usuarios.nombres} + ' ' + ${usuarios.apellidos}">
+                                        </h2>
+                                        <p th:text="${usuarios.idRol.descripcion}"></p>
+                                    </div>
+                                </div>
+
+                                <div class="p-4">
+                                    <div class="py-2 border-bottom">
+                                        <p class="text-muted small mb-1">Username</p>
+                                        <p class="fw-medium mb-0" th:text="${usuarios.username}"></p>
+                                    </div>
+                                    <div class="py-2 border-bottom">
+                                        <p class="text-muted small mb-1">Email</p>
+                                        <p class="fw-medium mb-0" th:text="${usuarios.correo}"></p>
+                                    </div>
+                                    <div class="py-2 border-bottom">
+                                        <p class="text-muted small mb-1">Dui</p>
+                                        <p class="fw-medium mb-0" th:text="${usuarios.dui}"></p>
+                                    </div>
+                                    <div class="py-2 border-bottom">
+                                        <p class="text-muted small mb-1">Teléfono</p>
+                                        <p class="fw-medium mb-0" th:text="${usuarios.telefono}"></p>
+                                    </div>
+                                    <div class="py-2">
+                                        <p class="text-muted small mb-1">Fecha incorporación</p>
+                                        <p class="fw-medium mb-0" th:text="${usuarios.fechaCrea}"></p>
+                                    </div>
+                                    <div class="py-2">
+                                        <a th:href="@{/usuarios/editar/{id}(id=${usuarios.idUsuario})}"
+                                            class="btn btn-primary">Editar</a>
+                                        <a href="/usuarios" class="btn btn-secondary">Regresar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8">
+                            <div class="content-area p-4">
+                                <!-- Aquí puedes agregar tu tabla, gráfica, etc. -->
+                                <h3>Sección de tablas o gráficos</h3>
+                                <p>Aquí podrías meter cualquier componente que quieras.</p>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, dolorum! Libero rem
+                                    impedit quod magni ad nihil veritatis porro itaque sint aspernatur nisi,
+                                    necessitatibus id sit inventore possimus corrupti sunt?</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="fragments/jsComponents :: jsScripts"></div>
+</body>
+
+</html>
