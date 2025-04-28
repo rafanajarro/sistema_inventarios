@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header(title='Movimiento de Inventario')"></head>
+<body>
+<div id="wrapper">
+    <div th:replace="fragments/sidebar :: sidebar"></div>
+
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+            <div class="container-fluid p-4">
+                <h1 class="h3 mb-4 text-gray-800">Movimiento de Inventario</h1>
+
+                <form th:action="@{/inventario/guardar}" th:object="${inventario}" method="post">
+                    <input type="hidden" th:field="*{idInventario}"/>
+
+                    <div class="form-group">
+                        <label for="producto">Producto</label>
+                        <select class="form-control" id="producto" name="producto.idProducto" required>
+                            <option value="" disabled selected>Seleccione un producto</option>
+                            <option th:each="prod : ${productos}" 
+                                    th:value="${prod.idProducto}" 
+                                    th:text="${prod.nombre}" 
+                                    th:selected="${prod.idProducto == inventario.producto?.idProducto}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cantidad">Cantidad</label>
+                        <input type="number" class="form-control" th:field="*{cantidad}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tipoMovimiento">Tipo de Movimiento</label>
+                        <input type="text" class="form-control" th:field="*{tipoMovimiento}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descripcion">Descripción</label>
+                        <textarea class="form-control" th:field="*{descripcion}"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <a href="/inventario" class="btn btn-secondary">Cancelar</a>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/jsComponents :: jsScripts"></div>
+</body>
+</html>
