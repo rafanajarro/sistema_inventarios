@@ -1,53 +1,79 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head th:replace="fragments/header :: header(title='Movimiento de Inventario')"></head>
+
 <body>
-<div id="wrapper">
-    <div th:replace="fragments/sidebar :: sidebar"></div>
+    <div id="wrapper">
+        <div th:replace="fragments/sidebar :: sidebar"></div>
 
-    <div id="content-wrapper" class="d-flex flex-column">
-        <div id="content">
-            <div class="container-fluid p-4">
-                <h1 class="h3 mb-4 text-gray-800">Movimiento de Inventario</h1>
-
-                <form th:action="@{/inventario/guardar}" th:object="${inventario}" method="post">
-                    <input type="hidden" th:field="*{idInventario}"/>
-
-                    <div class="form-group">
-                        <label for="producto">Producto</label>
-                        <select class="form-control" id="producto" name="producto.idProducto" required>
-                            <option value="" disabled selected>Seleccione un producto</option>
-                            <option th:each="prod : ${productos}" 
-                                    th:value="${prod.idProducto}" 
-                                    th:text="${prod.nombre}" 
-                                    th:selected="${prod.idProducto == inventario.producto?.idProducto}">
-                            </option>
-                        </select>
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <div class="container-fluid p-4">
+                    <div
+                        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2"
+                            th:text="${inventario.idInventario != null} ? 'Editar movimiento de inventario' : 'Nuevo movimiento de inventario'">
+                        </h1>
                     </div>
 
-                    <div class="form-group">
-                        <label for="cantidad">Cantidad</label>
-                        <input type="number" class="form-control" th:field="*{cantidad}" required>
+                    <!-- Mensaje Flash -->
+                    <div th:if="${mensaje}"
+                        th:classappend="${tipoMensaje == 'success' ? 'alert alert-success' : 'alert alert-danger'}"
+                        class="alert alert-dismissible fade show" role="alert">
+                        <span th:text="${mensaje}"></span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
 
-                    <div class="form-group">
-                        <label for="tipoMovimiento">Tipo de Movimiento</label>
-                        <input type="text" class="form-control" th:field="*{tipoMovimiento}" required>
-                    </div>
+                    <form
+                        th:action="@{${inventario.idInventario == null ? '/inventario/guardar' : '/inventario/editar/' + inventario.idInventario} }"
+                        th:object="${inventario}" method="post">
 
-                    <div class="form-group">
-                        <label for="descripcion">Descripción</label>
-                        <textarea class="form-control" th:field="*{descripcion}"></textarea>
-                    </div>
+                        <input type="hidden" th:field="*{idInventario}" />
 
-                    <button type="submit" class="btn btn-primary">Guardar</button>
-                    <a href="/inventario" class="btn btn-secondary">Cancelar</a>
-                </form>
+                        <div class="form-group">
+                            <label for="producto">Producto</label>
+                            <select id="idProducto" name="idProducto" class="form-control select-2"
+                                th:field="*{idProducto}" required>
+                                <option value="" disabled selected>Seleccione un producto</option>
+                                <option th:each="prod : ${productos}" th:value="${prod.idProducto}"
+                                    th:text="${prod.nombre}">
+                                </option>
+                            </select>
+                        </div>
 
+                        <div class="form-group">
+                            <label for="cantidad">Cantidad</label>
+                            <input type="number" class="form-control" th:field="*{cantidad}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tipoMovimiento">Tipo de Movimiento</label>
+                            <select id="idMovimiento" name="idMovimiento" class="form-control select-2"
+                                th:field="*{idMovimiento}" required>
+                                <option value="" disabled selected>Seleccione un producto</option>
+                                <option th:each="mov : ${movimientos}" th:value="${mov.idMovimiento}"
+                                    th:text="${mov.titulo}">
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="descripcion">Descripción</label>
+                            <textarea class="form-control" th:field="*{descripcion}"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-success">Guardar</button>
+                        <a href="/inventario" class="btn btn-secondary">Cancelar</a>
+                    </form>
+
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div th:replace="fragments/jsComponents :: jsScripts"></div>
+    <div th:replace="fragments/jsComponents :: jsScripts"></div>
 </body>
+
 </html>

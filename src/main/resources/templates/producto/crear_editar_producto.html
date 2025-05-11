@@ -1,67 +1,154 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head th:replace="fragments/header :: header(title='Crear o Editar Producto')"></head>
+
 <body>
-<div id="wrapper">
-    <div th:replace="fragments/sidebar :: sidebar"></div>
-    <div id="content-wrapper" class="d-flex flex-column">
-        <div id="content">
-            <div class="container-fluid p-4">
-                <h1 class="h3 mb-4 text-gray-800" th:text="${producto.idProducto != null} ? 'Editar Producto' : 'Nuevo Producto'"></h1>
-
-                <form th:action="@{/productos/guardar}" th:object="${producto}" method="post">
-                    <input type="hidden" th:field="*{idProducto}"/>
-
-                    <div class="form-group">
-                        <label>Nombre</label>
-                        <input type="text" th:field="*{nombre}" class="form-control" required>
+    <div id="wrapper">
+        <div th:replace="fragments/sidebar :: sidebar"></div>
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <div class="container-fluid p-4">
+                    <div
+                        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2" th:text="${producto.idProducto != null} ? 'Editar Producto' : 'Nuevo Producto'">
+                        </h1>
                     </div>
 
-                    <div class="form-group">
-                        <label>Descripción</label>
-                        <textarea th:field="*{descripcion}" class="form-control"></textarea>
-                    </div>
+                    <form
+                        th:action="@{${producto.idProducto == null} ? '/productos/guardar' : '/productos/editar/' + ${producto.idProducto} }"
+                        method="post" enctype="multipart/form-data" th:object="${producto}">
 
-                    <div class="form-group">
-                        <label>ID Categoría</label>
-                        <input type="number" th:field="*{idCategoria}" class="form-control" required>
-                    </div>
+                        <div class="form-group">
+                            <label>Nombre</label>
+                            <input type="text" th:field="*{nombre}" class="form-control" required>
+                        </div>
 
-                    <div class="form-group">
-                        <label>Precio Compra</label>
-                        <input type="number" th:field="*{precioCompra}" class="form-control" step="0.01" required>
-                    </div>
+                        <div class="form-group">
+                            <label>Descripción</label>
+                            <textarea th:field="*{descripcion}" class="form-control"></textarea>
+                        </div>
 
-                    <div class="form-group">
-                        <label>Precio Venta</label>
-                        <input type="number" th:field="*{precioVenta}" class="form-control" step="0.01" required>
-                    </div>
+                        <div class="mb-3">
+                            <label for="idCategoria" class="form-label">Categoría</label>
+                            <select id="idCategoria" name="idCategoria" class="form-control select-2"
+                                th:field="*{idCategoria}" required>
+                                <option value="" disabled selected>Seleccione una categoría</option>
+                                <option th:each="cat : ${categorias}" th:value="${cat.idCategoria}"
+                                    th:text="${cat.nombre}">
+                                </option>
+                            </select>
+                        </div>
 
-                    <div class="form-group">
-                        <label>Stock Mínimo</label>
-                        <input type="number" th:field="*{stockMinimo}" class="form-control" required>
-                    </div>
+                        <div class="form-group">
+                            <label>Precio Compra</label>
+                            <input type="number" th:field="*{precioCompra}" class="form-control" step="0.01"
+                                placeholder="0.00" required>
+                        </div>
 
-                    <div class="form-group">
-                        <label>Imagen (URL)</label>
-                        <input type="text" th:field="*{imagen}" class="form-control">
-                    </div>
+                        <div class="form-group">
+                            <label>Precio Venta</label>
+                            <input type="number" th:field="*{precioVenta}" class="form-control" step="0.01"
+                                placeholder="0.00" required>
+                        </div>
 
-                    <div class="form-group">
-                        <label>Estado</label>
-                        <select th:field="*{estado}" class="form-control">
-                            <option value="A">Activo</option>
-                            <option value="I">Inactivo</option>
-                        </select>
-                    </div>
+                        <div class="form-group">
+                            <label>Stock Mínimo</label>
+                            <input type="number" th:field="*{stockMinimo}" class="form-control" required>
+                        </div>
 
-                    <button type="submit" class="btn btn-success">Guardar</button>
-                    <a th:href="@{/productos}" class="btn btn-secondary">Cancelar</a>
-                </form>
+                        <div class="form-group">
+                            <label for="fotoProducto">Foto producto</label>
+                            <input type="file" id="fotoProducto" name="fotoProducto" class="form-control"
+                                accept=".png, .jpg, .jpeg">
+                        </div>
+
+                        <div class="form-group row align-items-center">
+                            <div class="col-md-4">
+                                <label for="unitTypeSelect" class="form-label">Tipo de medida</label>
+                                <select id="unitTypeSelect" name="unitTypeSelect" class="form-control select-2"
+                                    required>
+                                    <option value="0" selected>Seleccionar tipo medida...</option>
+                                    <option value="weight">Unidades de peso</option>
+                                    <option value="length">Unidades de longitud</option>
+                                    <option value="measurement">Unidades de medida</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-1">
+                                <!-- Espacio vacío o puedes poner algo si quieres -->
+                            </div>
+
+                            <div class="col-md-7">
+                                <label for="unitSelect" class="form-label">Unidad</label>
+                                <select id="unitSelect" name="unitSelect" class="form-select select-2"
+                                    th:field="*{unidadMedida}">
+                                    <option value="0" disabled selected>Seleccionar...</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Estado</label>
+                            <select th:field="*{estado}" class="form-control">
+                                <option value="A">Activo</option>
+                                <option value="I">Inactivo</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-success">Guardar</button>
+                        <a th:href="@{/productos}" class="btn btn-secondary">Cancelar</a>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div th:replace="fragments/jsComponents :: jsScripts"></div>
+    <div th:replace="fragments/jsComponents :: jsScripts"></div>
+    <script>
+        // Validacion imagen
+        document.getElementById("fotoProducto").addEventListener("change", function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const validExtensions = ["image/png", "image/jpeg"];
+                if (!validExtensions.includes(file.type)) {
+                    alert("Solo se permiten archivos PNG o JPG.");
+                    event.target.value = "";
+                }
+            }
+        });
+
+        //
+        $(document).ready(() => {
+            $('#unitTypeSelect').on("change", function () {
+                let selectedValue = $(this).val();
+                let urlValue = '';
+                if (selectedValue == 'weight') urlValue = "/obtenerPesosSelect"
+                if (selectedValue == 'length') urlValue = "/obtenerLongitudesSelect"
+                if (selectedValue == 'measurement') urlValue = "/obtenerUnidadesSelect"
+
+                $.ajax({
+                    url: urlValue,
+                    type: "GET",
+                    success: function (data) {
+                        $("#unitSelect").empty();
+                        $("#unitSelect").append('<option value="0" disabled selected>Seleccionar...</option>');
+
+                        // Agregar opciones basadas en los datos recibidos
+                        data.forEach((element, index) => {
+                            let valueOption = element.titulo;
+                            let option = new Option(valueOption, element.titulo);
+                            $("#unitSelect").append(option);
+                        });
+                    },
+                    error: function (error) {
+                        console.error("Error en la petición AJAX:", error);
+                    }
+                });
+            });
+        });
+
+    </script>
 </body>
+
 </html>

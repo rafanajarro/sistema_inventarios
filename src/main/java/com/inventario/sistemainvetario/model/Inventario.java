@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.UpdateTimestamp;
+
 @Entity
 @Getter
 @Setter
@@ -18,18 +20,26 @@ public class Inventario {
     private Integer idInventario;
 
     @ManyToOne
-    @JoinColumn(name = "ID_PRODUCTO", nullable = false)
-    private Producto producto;
+    @JoinColumn(name = "ID_PRODUCTO", referencedColumnName = "ID_PRODUCTO", nullable = false)
+    private Producto idProducto;
 
     @Column(name = "CANTIDAD", nullable = false)
     private Integer cantidad;
 
-    @Column(name = "TIPO_MOVIMIENTO", length = 20, nullable = false)
-    private String tipoMovimiento;
+    @ManyToOne
+    @JoinColumn(name = "ID_MOVIMIENTO", referencedColumnName = "ID_MOVIMIENTO", nullable = false)
+    private Movimiento idMovimiento;
 
     @Column(name = "DESCRIPCION", length = 255)
     private String descripcion;
 
+    @UpdateTimestamp
     @Column(name = "FECHA_MOVIMIENTO", nullable = false)
     private LocalDateTime fechaMovimiento;
+
+    @Column(name = "USUARIO_CREA", nullable = true)
+    private String usuarioCrea;
+
+    @Column(name = "USUARIO_MOD", nullable = true)
+    private String usuarioMod;
 }

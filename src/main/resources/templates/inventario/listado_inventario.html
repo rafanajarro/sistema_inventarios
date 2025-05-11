@@ -1,54 +1,63 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head th:replace="fragments/header :: header(title='Inventario')"></head>
+
 <body>
-<div id="wrapper">
-    <div th:replace="fragments/sidebar :: sidebar"></div>
+    <div id="wrapper">
+        <div th:replace="fragments/sidebar :: sidebar"></div>
 
-    <div id="content-wrapper" class="d-flex flex-column">
-        <div id="content">
-            <div class="container-fluid p-4">
-                <h1 class="h3 mb-4 text-gray-800">Inventario</h1>
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <div class="container-fluid p-4">
+                    <div
+                        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">Inventario</h1>
+                    </div>
 
-                <a href="/inventario/nuevo" class="btn btn-primary mb-3">Agregar Movimiento</a>
+                    <a href="/inventario/nuevo" class="btn btn-primary mb-3">Agregar</a>
 
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Producto</th>
-                            <th>Cantidad</th>
-                            <th>Tipo Movimiento</th>
-                            <th>Descripción</th>
-                          
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="inv : ${inventarios}">
-                            <td th:text="${inv.producto.nombre}"></td>
-                            <td th:text="${inv.cantidad}"></td>
-                            <td th:text="${inv.tipoMovimiento}"></td>
-                            <td th:text="${inv.descripcion}"></td>
-                           
-                            <td>
-                                <a th:href="@{/inventario/editar/{id}(id=${inv.idInventario})}" class="btn btn-warning btn-sm">Editar</a>
-                                <a th:href="@{/inventario/eliminar/{id}(id=${inv.idInventario})}" class="btn btn-danger btn-sm"
-                                    onclick="return confirm('¿Está seguro de eliminar este registro?');">Eliminar</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                    <div th:if="${mensaje}"
+                        th:classappend="${tipoMensaje == 'success' ? 'alert alert-success' : 'alert alert-danger'}"
+                        role="alert" class="mt-3">
+                        <span th:text="${mensaje}"></span>
+                    </div>
 
-                <div th:if="${mensaje}" 
-                    th:classappend="${tipoMensaje == 'success' ? 'alert alert-success' : 'alert alert-danger'}"
-                    role="alert" class="mt-3">
-                    <span th:text="${mensaje}"></span>
+                    <div class="table-responsive">
+                        <table class="table table-striped" width="100%" cellspacing="0" id="dataTable">
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Cantidad</th>
+                                    <th>Tipo Movimiento</th>
+                                    <th>Descripción</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="inv : ${inventarios}">
+                                    <td th:text="${inv.idProducto.nombre}"></td>
+                                    <td th:text="${inv.cantidad}"></td>
+                                    <td th:text="${inv.idMovimiento.titulo}"></td>
+                                    <td th:text="${inv.descripcion}"></td>
+
+                                    <td>
+                                        <a th:href="@{/inventario/editar/{id}(id=${inv.idInventario})}">
+                                            <i class="fas fa-edit" style="color: #085691;"></i></a>
+
+                                        <a th:href="@{/inventario/eliminar/{id}(id=${inv.idInventario})}"
+                                            onclick="return confirm('¿Estás seguro de que deseas eliminar este usuario?');">
+                                            <i class="fas fa-trash-alt" style="color: #085691;"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-
             </div>
         </div>
     </div>
-</div>
-<div th:replace="fragments/jsComponents :: jsScripts"></div>
+    <div th:replace="fragments/jsComponents :: jsScripts"></div>
 </body>
+
 </html>

@@ -1,59 +1,68 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head th:replace="fragments/header :: header(title='Listado de Productos')"></head>
+
 <body>
-<div id="wrapper">
-    <div th:replace="fragments/sidebar :: sidebar"></div>
-    <div id="content-wrapper" class="d-flex flex-column">
-        <div id="content">
-            <div class="container-fluid p-4">
-                <h1 class="h3 mb-4 text-gray-800">Listado de Productos</h1>
+    <div id="wrapper">
+        <div th:replace="fragments/sidebar :: sidebar"></div>
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <div class="container-fluid p-4">
+                    <div
+                        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">Listado de Productos</h1>
+                    </div>
 
-                <div th:if="${mensaje}" 
-                     th:classappend="${tipoMensaje == 'success' ? 'alert alert-success' : 'alert alert-danger'}">
-                    <span th:text="${mensaje}"></span>
+                    <a th:href="@{/productos/nuevo}" class="btn btn-primary mb-3">Nuevo Producto</a>
+
+                    <div th:if="${mensaje}"
+                        th:classappend="${tipoMensaje == 'success' ? 'alert alert-success' : 'alert alert-danger'}">
+                        <span th:text="${mensaje}"></span>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-striped" width="100%" cellspacing="0" id="dataTable">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Descripción</th>
+                                    <th>Precio Compra</th>
+                                    <th>Precio Venta</th>
+                                    <th>Stock Mínimo</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="producto : ${productos}">
+                                    <td th:text="${producto.nombre}">Producto</td>
+                                    <td th:text="${producto.descripcion}">Descripción</td>
+                                    <td th:text="${producto.precioCompra}">$0.00</td>
+                                    <td th:text="${producto.precioVenta}">$0.00</td>
+                                    <td th:text="${producto.stockMinimo}">10</td>
+                                    <td th:text="${producto.estado}">A</td>
+                                    <td>
+                                        <a th:href="@{/productos/ver/{id}(id=${producto.idProducto})}">
+                                            <i class="fas fa-solid fa-eye" style="color: #085691;"></i></a>
+
+                                        <a th:href="@{/productos/editar/{id}(id=${producto.idProducto})}">
+                                            <i class="fas fa-edit" style="color: #085691;"></i></a>
+
+                                        <a th:href="@{/productos/eliminar/{id}(id=${producto.idProducto})}"
+                                            onclick="return confirm('¿Estás seguro de que deseas eliminar este usuario?');">
+                                            <i class="fas fa-trash-alt" style="color: #085691;"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
-
-                <a th:href="@{/productos/nuevo}" class="btn btn-primary mb-3">Nuevo Producto</a>
-
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th>ID</th>
-                                <th>Nombre</th>
-                                <th>Descripción</th>
-                                <th>Precio Compra</th>
-                                <th>Precio Venta</th>
-                                <th>Stock Mínimo</th>
-                                <th>Estado</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr th:each="producto : ${productos}">
-                                <td th:text="${producto.idProducto}">1</td>
-                                <td th:text="${producto.nombre}">Producto</td>
-                                <td th:text="${producto.descripcion}">Descripción</td>
-                                <td th:text="${producto.precioCompra}">$0.00</td>
-                                <td th:text="${producto.precioVenta}">$0.00</td>
-                                <td th:text="${producto.stockMinimo}">10</td>
-                                <td th:text="${producto.estado}">A</td>
-                                <td>
-                                    <a th:href="@{/productos/editar/{id}(id=${producto.idProducto})}" class="btn btn-sm btn-warning">Editar</a>
-                                    <a th:href="@{/productos/eliminar/{id}(id=${producto.idProducto})}" 
-                                       class="btn btn-sm btn-danger"
-                                       onclick="return confirm('¿Seguro que deseas eliminar este producto?');">Eliminar</a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
             </div>
         </div>
     </div>
-</div>
-<div th:replace="fragments/jsComponents :: jsScripts"></div>
+    <div th:replace="fragments/jsComponents :: jsScripts"></div>
 </body>
+
 </html>

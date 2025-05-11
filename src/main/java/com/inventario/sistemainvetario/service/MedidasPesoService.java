@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.inventario.sistemainvetario.model.MedidasPeso;
-import com.inventario.sistemainvetario.repository.MedidasLongitudRepository;
 import com.inventario.sistemainvetario.repository.MedidasPesoRepository;
 
 @Service

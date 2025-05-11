@@ -1,4 +1,5 @@
 package com.inventario.sistemainvetario.model;
+
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;

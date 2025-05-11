@@ -3,6 +3,7 @@ package com.inventario.sistemainvetario.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,13 @@ public class MedidasLongitudController {
 
     @Autowired
     private MedidasLongitudService medidasLongitudService;
+
+    //
+    @GetMapping("/obtenerLongitudesSelect")
+    public ResponseEntity<?> obtenerLongitudes() {
+        List<MedidasLongitud> medidasLongituds = medidasLongitudService.obtenerTodos();
+        return ResponseEntity.ok(medidasLongituds);
+    }
 
     // Mostrar
     @GetMapping("/longitud")
@@ -38,7 +46,7 @@ public class MedidasLongitudController {
     // Guardar
     @PostMapping("/longitud/crear")
     public String guardar(@ModelAttribute MedidasLongitud longitud, RedirectAttributes redirectAttributes) {
-        try {            
+        try {
             medidasLongitudService.guardar(longitud);
             redirectAttributes.addFlashAttribute("mensaje", "El valor se guardó correctamente.");
             redirectAttributes.addFlashAttribute("tipoMensaje", "success");

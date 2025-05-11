@@ -27,8 +27,9 @@ public class Producto {
     @Column(name = "DESCRIPCION", length = 255)
     private String descripcion;
 
-    @Column(name = "ID_CATEGORIA", nullable = false)
-    private Integer idCategoria;
+    @ManyToOne
+    @JoinColumn(name = "ID_CATEGORIA", referencedColumnName = "ID_CATEGORIA", nullable = false)
+    private Categorias idCategoria;
 
     @Column(name = "PRECIO_COMPRA", nullable = false)
     private BigDecimal precioCompra;
@@ -52,4 +53,13 @@ public class Producto {
     @UpdateTimestamp
     @Column(name = "FECHA_MOD")
     private LocalDateTime fechaMod;
+
+    @Column(name = "UNIDAD_MEDIDA", nullable = false)
+    private String unidadMedida;
+
+    @Column(name = "USUARIO_CREA", nullable = true)
+    private String usuarioCrea;
+
+    @Column(name = "USUARIO_MOD", nullable = true)
+    private String usuarioMod;
 }
