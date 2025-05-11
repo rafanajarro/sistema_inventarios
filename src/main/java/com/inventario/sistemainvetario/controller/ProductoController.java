@@ -12,6 +12,7 @@ import java.util.Map;
 
 import com.inventario.sistemainvetario.model.Categorias;
 import com.inventario.sistemainvetario.model.Producto;
+import com.inventario.sistemainvetario.model.ProductoActividad;
 import com.inventario.sistemainvetario.service.CategoriaService;
 import com.inventario.sistemainvetario.service.ProductoService;
 
@@ -46,6 +47,12 @@ public class ProductoController {
     private Environment environment;
     private static Logger logger = LoggerFactory.getLogger(ProductoController.class);
 
+    @GetMapping("/entradasSalidasPorMes")
+    public ResponseEntity<?> obtenerMovimientosProducto(@RequestParam Integer idProducto) {
+        List<Map<String, Object>> resumen = productoService.obtenerMovimientosProducto(idProducto);        
+        return ResponseEntity.ok(resumen);
+    }
+
     @GetMapping("/stockBajo")
     public ResponseEntity<?> obtenerStockBajo() {
         List<Map<String, Object>> resumen = productoService.obtenerStockBajo();
@@ -55,6 +62,7 @@ public class ProductoController {
     @GetMapping
     public String listarProductos(Model model) {
         List<Producto> productos = productoService.obtenerTodos();
+
         model.addAttribute("productos", productos);
         return "producto/listado_productos";
     }
@@ -76,6 +84,7 @@ public class ProductoController {
             HashMap<String, String> rutas = guardarFoto(fotoProducto);
             producto.setImagen(rutas != null && rutas.containsKey("rutaFoto") ? rutas.get("rutaFoto") : "");
             producto.setUsuarioCrea(username);
+            producto.setUsuarioMod(username);
             productoService.guardar(producto);
             redirectAttributes.addFlashAttribute("mensaje", "Producto guardado correctamente.");
             redirectAttributes.addFlashAttribute("tipoMensaje", "success");
@@ -189,7 +198,12 @@ public class ProductoController {
         if (producto == null) {
             return "redirect:/productos";
         }
+
+        List<ProductoActividad> actividad = productoService.obtenerUltimaActividadProducto(id);
+        String cantidadTotalProducto = productoService.obtenerCantidadTotalProducto(id);
         model.addAttribute("producto", producto);
+        model.addAttribute("actividad", actividad);
+        model.addAttribute("cantidadTotalProducto", cantidadTotalProducto);
         return "producto/ver_producto";
     }
 

@@ -65,6 +65,7 @@ public class InventarioController {
 
             inventario.setFechaMovimiento(LocalDateTime.now());
             inventario.setUsuarioCrea(username);
+            inventario.setUsuarioMod(username);
             inventarioService.guardar(inventario);
             redirectAttributes.addFlashAttribute("mensaje", "Registro guardado exitosamente.");
             redirectAttributes.addFlashAttribute("tipoMensaje", "success");

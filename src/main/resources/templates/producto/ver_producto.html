@@ -15,6 +15,7 @@
             <div id="content">
                 <div class="container-fluid p-4">
                     <div class="row">
+                        <!-- Columna izquierda: información del producto -->
                         <div class="col-md-4 border-end" style="border-right: 2px solid #dee2e6;">
                             <div class="profile-sidebar overflow-hidden">
                                 <div class="profile-header p-4 d-flex flex-column align-items-center gap-3"
@@ -26,8 +27,7 @@
                                             style="width: 100%; height: 100%; object-fit: cover;" />
                                     </div>
                                     <div>
-                                        <h2 class="fw-bold fs-4 mb-0" th:text="${producto.nombre}">
-                                        </h2>
+                                        <h2 class="fw-bold fs-4 mb-0" th:text="${producto.nombre}"></h2>
                                         <p th:text="${producto.descripcion}"></p>
                                     </div>
                                 </div>
@@ -61,12 +61,115 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Columna derecha: última actividad -->
+                        <div class="col-md-8">
+                            <div class="p-4 pb-0">
+                                <h3>Última actividad</h3>
+                                <p>Stock actual: <span th:text="${cantidadTotalProducto}">0</span></p>
+
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Fecha Movimiento</th>
+                                                <th>Cantidad</th>
+                                                <th>Tipo Movimiento</th>
+                                                <th>Descripción</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="act : ${actividad}">
+                                                <td th:text="${act.fechaMovimiento}">2025-05-11</td>
+                                                <td th:text="${act.cantidad}">0</td>
+                                                <td th:text="${act.tipoMovimiento}">ENTRADA</td>
+                                                <td th:text="${act.descripcion}">N/A</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="p-4 pt-0">
+                                <canvas id="graficoEntradasSalidas" height="150"></canvas>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
     <div th:replace="fragments/jsComponents :: jsScripts"></div>
+
+    <script th:inline="javascript">
+        var idProducto = /*[[${producto.idProducto}]]*/ 0;
+        $.ajax({
+            url: "/productos/entradasSalidasPorMes",  // Asegúrate de que esta URL sea correcta
+            type: "GET",
+            data: { idProducto: idProducto },  // Asegúrate de pasar el ID del producto aquí
+            success: function (data) {
+                const labels = [];
+                const entradasValues = [];
+                const salidasValues = [];
+
+                // Iterar sobre los datos y separarlos
+                data.forEach(item => {
+                    const fecha = new Date(item.anio, item.mes - 1);  // Crear una fecha de tipo Date
+                    const mes = fecha.toLocaleString('default', { month: 'long' });  // Obtener el nombre del mes
+                    const anio = item.anio;
+
+                    labels.push(mes + ' ' + anio);  // Etiquetas de los meses
+                    entradasValues.push(item.entradas);  // Entradas
+                    salidasValues.push(item.salidas);  // Salidas
+                });
+
+                // Configurar el gráfico de barras
+                const ctx = document.getElementById('graficoEntradasSalidas').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,  // Meses como etiquetas
+                        datasets: [
+                            {
+                                label: 'Entradas de Inventario',
+                                data: entradasValues,
+                                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Salidas de Inventario',
+                                data: salidasValues,
+                                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                                borderColor: 'rgba(255, 99, 132, 1)',
+                                borderWidth: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            x: {
+                                beginAtZero: true
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'top'
+                            },
+                            title: {
+                                display: true,
+                                text: 'Entradas y Salidas de Inventario por Mes'
+                            }
+                        }
+                    }
+                });
+            },
+            error: function (error) {
+                console.error("Error al obtener los movimientos de inventario:", error);
+            }
+        });
+    </script>
 </body>
 
 </html>

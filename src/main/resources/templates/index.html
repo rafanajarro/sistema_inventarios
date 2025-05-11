@@ -7,17 +7,61 @@
 </head>
 
 <body>
-    <div id="wrapper">
+    <div id="wrapper" class="d-flex">
         <div th:replace="fragments/sidebar :: sidebar"></div>
+
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
             <!-- Main Content -->
             <div id="content">
                 <div class="container-fluid p-4">
+                    <!-- Encabezado -->
                     <div
-                        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
                         <h1 class="h2">Panel de Administración</h1>
                     </div>
+
+                    <!-- Gráficos principales -->
+                    <div class="row mb-4">
+                        <div class="col-lg-6 mb-4">
+                            <div class="card shadow-sm h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title mb-3">Stock total de productos por categoría</h5>
+                                    <canvas id="graficoStockCategoria" height="200"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 mb-4">
+                            <div class="card shadow-sm h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title mb-3">Movimientos por tipo</h5>
+                                    <canvas id="graficoTipoMovimientos" height="200"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gráficos secundarios -->
+                    <div class="row">
+                        <div class="col-md-6 col-lg-6 mb-4">
+                            <div class="card shadow-sm h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title mb-3">Productos con stock bajo el mínimo</h5>
+                                    <canvas id="graficoStockBajo" height="200"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 mb-4">
+                            <div class="card shadow-sm h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title mb-3">Productos más vendidos</h5>
+                                    <canvas id="graficoProductosMasVendidos" height="200"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Configuración del sistema -->
                     <div class="card shadow-sm mb-4">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center mb-3">
@@ -25,7 +69,6 @@
                             </div>
                             <p class="card-text">Personalice las configuraciones del sistema según las necesidades de su
                                 empresa.</p>
-
                             <div>
                                 <label for="theme-selector">Selecciona un tema:</label>
                                 <select id="theme-selector" class="form-select">
@@ -35,41 +78,14 @@
                                     <option value="theme-green">Verde</option>
                                 </select>
                             </div>
-
                         </div>
                     </div>
 
-                    <div class="row mb-5">
-                        <div class="col-md-8">
-                            <h4 class="mb-3">Resumen anual de prácticas profesionales</h4>
-                            <div class="chart-placeholder p-3 bg-white shadow rounded-3">
-                                <canvas id="graficoStockCategoria" width="400" height="200"></canvas>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <h4 class="mb-3">Movimientos por tipo</h4>
-                            <div class="chart-placeholder p-3 bg-white shadow rounded-3">
-                                <canvas id="graficoTipoMovimientos" width="400" height="200"></canvas>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <h4 class="mb-3">Productos con stock bajo el mínimo</h4>
-                            <div class="chart-placeholder p-3 bg-white shadow rounded-3">
-                                <canvas id="graficoStockBajo" width="400" height="200"></canvas>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <h4 class="mb-3">Productos con stock bajo el mínimo</h4>
-                            <div class="chart-placeholder p-3 bg-white shadow rounded-3">
-                                <canvas id="graficoProductosMasVendidos" width="400" height="200"></canvas>
-                            </div>
-                        </div>
-                    </div>
+                </div> <!-- container-fluid -->
+            </div> <!-- content -->
+        </div> <!-- content-wrapper -->
+    </div> <!-- wrapper -->
 
-                </div>
-            </div>
-        </div>
-    </div>
     <div th:replace="fragments/userModal :: userModal"></div>
     <div th:replace="fragments/jsComponents :: jsScripts"></div>
 

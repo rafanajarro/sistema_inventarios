@@ -7,12 +7,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.inventario.sistemainvetario.model.Producto;
+import com.inventario.sistemainvetario.model.ProductoActividad;
 import com.inventario.sistemainvetario.repository.ProductoRepository;
 
 @Service
 public class ProductoService {
     @Autowired
     private ProductoRepository productoRepository;
+
+    public String obtenerCantidadTotalProducto(Integer idProducto) {
+        return productoRepository.findCantidadTotalProducto(idProducto);
+    }
+
+    public List<Map<String, Object>> obtenerMovimientosProducto(Integer idProducto) {
+        return productoRepository.findMovimientosProducto(idProducto);
+    }
+
+    public List<ProductoActividad> obtenerUltimaActividadProducto(Integer idProducto) {
+        return productoRepository.findActividadReciente(idProducto);
+    }
 
     public List<Map<String, Object>> obtenerStockBajo() {
         return productoRepository.findStockBajo();

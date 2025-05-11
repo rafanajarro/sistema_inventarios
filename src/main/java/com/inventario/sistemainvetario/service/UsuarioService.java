@@ -6,12 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.inventario.sistemainvetario.model.Usuario;
+import com.inventario.sistemainvetario.model.UsuarioActividad;
 import com.inventario.sistemainvetario.repository.UsuarioRepository;
 
 @Service
 public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    public List<UsuarioActividad> obtenerUltimaActividadUsuarioActividads(String usuarioMod) {
+        return usuarioRepository.findActividadReciente(usuarioMod);
+    }
 
     public List<Usuario> obtenerTodos() {
         return usuarioRepository.findAll();

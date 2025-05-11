@@ -29,8 +29,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.inventario.sistemainvetario.model.ProductoActividad;
 import com.inventario.sistemainvetario.model.RolUsuario;
 import com.inventario.sistemainvetario.model.Usuario;
+import com.inventario.sistemainvetario.model.UsuarioActividad;
 import com.inventario.sistemainvetario.service.RolUsuarioService;
 import com.inventario.sistemainvetario.service.UsuarioService;
 
@@ -158,7 +160,10 @@ public class UsuariosController {
         if (usuarios == null) {
             return "redirect:/usuarios";
         }
+        List<UsuarioActividad> actividad = usuarioService
+                .obtenerUltimaActividadUsuarioActividads(usuarios.getUsername());
         model.addAttribute("usuarios", usuarios);
+        model.addAttribute("actividad", actividad);
         return "usuarios/perfil_usuarios";
     }
 

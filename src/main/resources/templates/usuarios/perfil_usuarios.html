@@ -66,11 +66,27 @@
                         <div class="col-md-8">
                             <div class="content-area p-4">
                                 <!-- Aquí puedes agregar tu tabla, gráfica, etc. -->
-                                <h3>Sección de tablas o gráficos</h3>
-                                <p>Aquí podrías meter cualquier componente que quieras.</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, dolorum! Libero rem
-                                    impedit quod magni ad nihil veritatis porro itaque sint aspernatur nisi,
-                                    necessitatibus id sit inventore possimus corrupti sunt?</p>
+                                <h3>Última actividad</h3>
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Cantidad</th>
+                                                <th>Fecha Movimiento</th>
+                                                <th>Tipo Movimiento</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="act : ${actividad}">
+                                                <td th:text="${act.nombre}">2025-05-11</td>
+                                                <td th:text="${act.cantidad}">0</td>
+                                                <td th:text="${act.fechaMovimiento}">ENTRADA</td>
+                                                <td th:text="${act.tipoMovimiento}">N/A</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>

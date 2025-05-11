@@ -19,27 +19,35 @@
                 <i class="bi bi-grid-fill"></i> Dashboard
             </a>
 
-            <div sec:authorize="hasRole('ADMIN')">
+            <div>
                 <h6>Utilidades</h6>
-                <a th:href="@{/longitud}" class="nav-link">
-                    <i class="bi bi-rulers"></i> Medidas de longitud
-                </a>
-                <a th:href="@{/peso}" class="nav-link">
-                    <i class="bi bi-bar-chart-fill"></i> Medidas de peso
-                </a>
-                <a th:href="@{/unidades}" class="nav-link">
-                    <i class="bi bi-collection-fill"></i> Unidades de medida
-                </a>
-                <a th:href="@{/usuarios}" class="nav-link">
-                    <i class="bi bi-people-fill"></i> Usuarios
-                </a>
-                <a th:href="@{/roles}" class="nav-link">
-                    <i class="bi bi-gear-fill"></i> Roles
-                </a>
+                <div sec:authorize="hasRole('ADMIN')">
+
+                    <a th:href="@{/longitud}" class="nav-link">
+                        <i class="bi bi-rulers"></i> Medidas de longitud
+                    </a>
+                    <a th:href="@{/peso}" class="nav-link">
+                        <i class="bi bi-bar-chart-fill"></i> Medidas de peso
+                    </a>
+                    <a th:href="@{/unidades}" class="nav-link">
+                        <i class="bi bi-collection-fill"></i> Unidades de medida
+                    </a>
+                    <a th:href="@{/usuarios}" class="nav-link">
+                        <i class="bi bi-people-fill"></i> Usuarios
+                    </a>
+                    <a th:href="@{/roles}" class="nav-link">
+                        <i class="bi bi-gear-fill"></i> Roles
+                    </a>
+                </div>
+                <div>
+                    <a th:href="@{/roles}" class="nav-link">
+                        <i class="bi bi-filetype-pdf"></i> Reportes
+                    </a>
+                </div>
             </div>
 
             <div>
-                <h6>Inventario</h6>
+                <h6>Sistema</h6>
                 <a href="/productos" class="nav-link">
                     <i class="bi bi-archive-fill"></i> Productos
                 </a>
@@ -54,10 +62,12 @@
                 </a>
             </div>
 
-            <h6>Auth</h6>
-            <a th:href="@{/logout}" class="nav-link">
-                <i class="bi bi-box-arrow-in-right"></i> Cerrar sesión
-            </a>
+            <div>
+                <h6>Auth</h6>
+                <a th:href="@{/logout}" class="nav-link">
+                    <i class="bi bi-box-arrow-in-right"></i> Cerrar sesión
+                </a>
+            </div>
         </div>
     </div>
 </div>

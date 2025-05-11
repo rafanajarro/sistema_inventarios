@@ -20,40 +20,29 @@
     <!-- OTROS ESTILOS -->
     <style>
         body {
+            color: #000000;
             margin: 0;
             font-family: 'Segoe UI', sans-serif;
             transition: background-color 0.5s, color 0.5s;
         }
 
-        /* Tema Claro */
-        body.theme-light {
-            background-color: #ffffff;
-            color: #000000;
-        }
-
-        /* Tema Oscuro */
-        body.theme-dark {
-            background-color: #1e1e2f;
-        }
-
-        /* Tema Azul */
-        body.theme-blue {
-            background-color: #001f3f;
-        }
-
-        /* Tema Verde */
-        body.theme-green {
-            background-color: #004d40;
-        }
-
         /* Sidebar */
         .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
             height: 100vh;
             width: 250px;
             padding-top: 1rem;
             border-right: 1px solid #eee;
             background-color: #fff;
             transition: background-color 0.5s, color 0.5s, border-color 0.5s;
+            z-index: 1030;
+        }
+
+        #content-wrapper {
+            margin-left: 225px;
+            width: calc(100% - 250px);
         }
 
         /* Ajuste Sidebar por tema */
@@ -70,6 +59,21 @@
         body.theme-green .sidebar {
             background-color: #00695c;
             border-color: #00796b;
+        }
+
+        body.theme-dark #content-wrapper {
+            background-color: #1e1e2f;
+            color: #000;
+        }
+
+        body.theme-blue #content-wrapper {
+            background-color: #001f3f;
+            color: #000;
+        }
+
+        body.theme-green #content-wrapper {
+            background-color: #004d40;
+            color: #000;
         }
 
         /* Nav Links dentro del Sidebar */
@@ -162,8 +166,6 @@
             height: 32px;
         }
     </style>
-
-
 </head>
 
 <body>
