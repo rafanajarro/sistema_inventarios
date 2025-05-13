@@ -82,7 +82,9 @@ public class reportPrinter {
             InputStream employeeReportStream = getClass().getResourceAsStream("/static/reports/" + nombre + ".jrxml");
             JasperReport jasperReport = JasperCompileManager.compileReport(employeeReportStream);
             JRSaver.saveObject(jasperReport, nombre + ".jasper");
+            System.out.println("EL REPORTE HA SIDO COMPILADO.");
         } catch (Exception ex) {
+            System.out.println("EL REPORTE NO SE PUDO COMPILAR. " + ex.getMessage());
             ex.printStackTrace();
         }
 

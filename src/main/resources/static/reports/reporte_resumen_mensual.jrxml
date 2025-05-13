@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporte_resumen_mensual" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="76284613-1606-4575-8143-a5792fc0ea0c">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SISTEMA INVENTARIO"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT * FROM V_REPORTE_MENSUAL_MOVIMIENTOS]]>
+	</queryString>
+	<field name="Mes" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Mes"/>
+		<property name="com.jaspersoft.studio.field.label" value="Mes"/>
+	</field>
+	<field name="Producto" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Producto"/>
+		<property name="com.jaspersoft.studio.field.label" value="Producto"/>
+	</field>
+	<field name="Entradas" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="Entradas"/>
+		<property name="com.jaspersoft.studio.field.label" value="Entradas"/>
+	</field>
+	<field name="Salidas" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="Salidas"/>
+		<property name="com.jaspersoft.studio.field.label" value="Salidas"/>
+	</field>
+	<field name="Diferencia" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="Diferencia"/>
+		<property name="com.jaspersoft.studio.field.label" value="Diferencia"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="30" uuid="d6e7f8a9-b0c1-2345-d6e7-f8a9b0c12345"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Resumen mensual de movimientos]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="30" width="555" height="20" uuid="e7f8a9b0-c1d2-3456-e7f8-a9b0c1d23456"/>
+				<textElement textAlignment="Center">
+					<font isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Generado el " + new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm").format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="55" width="555" height="1" uuid="f8a9b0c1-d2e3-4567-f8a9-b0c1d2e34567"/>
+				<graphicElement>
+					<pen lineWidth="1.0"/>
+				</graphicElement>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="25">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="100" height="25" forecolor="#FFFFFF" backcolor="#3F51B5" uuid="b0c1d2e3-f4a5-6789-b0c1-d2e3f4a56789"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="100" y="0" width="250" height="25" forecolor="#FFFFFF" backcolor="#3F51B5" uuid="c1d2e3f4-a5b6-7890-c1d2-e3f4a5b67890"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Producto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="350" y="0" width="75" height="25" forecolor="#FFFFFF" backcolor="#3F51B5" uuid="d2e3f4a5-b6c7-8901-d2e3-f4a5b6c78901"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Entradas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="425" y="0" width="75" height="25" forecolor="#FFFFFF" backcolor="#3F51B5" uuid="e3f4a5b6-c7d8-9012-e3f4-a5b6c7d89012"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Salidas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="500" y="0" width="50" height="25" forecolor="#FFFFFF" backcolor="#3F51B5" uuid="e3f4a5b6-c7d8-9012-e3f4-a5b6c7d89013"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Diferencia]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="25" uuid="f0a1b2c3-d4e5-6789-f0a1-b2c3d4e56789"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Mes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="250" height="25" uuid="f1b2c3d4-e5f6-7890-f1b2-c3d4e5f67890"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Producto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="350" y="0" width="75" height="25" uuid="f2c3d4e5-f6a7-8901-f2c3-d4e5f6a78901"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Entradas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="425" y="0" width="75" height="25" uuid="f3d4e5f6-a7b8-9012-f3d4-e5f6a7b89012"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Salidas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="500" y="0" width="50" height="25" uuid="f4e5f6a7-b8c9-0123-f4e5-f6a7b8c90123"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Diferencia}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

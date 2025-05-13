@@ -10,7 +10,7 @@
 
         <!-- Menú colapsable -->
         <div class="collapse d-md-block" id="menuSidebar">
-            <div class="brand-logo mb-3">
+            <div class="brand-logo mb-1">
                 <i class="bi bi-box2"></i> SISTEMA INVENTARIO
             </div>
 
@@ -23,48 +23,56 @@
                 <h6>Utilidades</h6>
                 <div sec:authorize="hasRole('ADMIN')">
 
-                    <a th:href="@{/longitud}" class="nav-link">
+                    <a th:href="@{/longitud}" class="nav-link mb-0 pb-0">
                         <i class="bi bi-rulers"></i> Medidas de longitud
                     </a>
-                    <a th:href="@{/peso}" class="nav-link">
+                    <a th:href="@{/peso}" class="nav-link mb-0 pb-0">
                         <i class="bi bi-bar-chart-fill"></i> Medidas de peso
                     </a>
-                    <a th:href="@{/unidades}" class="nav-link">
+                    <a th:href="@{/unidades}" class="nav-link mb-0 pb-0">
                         <i class="bi bi-collection-fill"></i> Unidades de medida
                     </a>
-                    <a th:href="@{/usuarios}" class="nav-link">
+                    <a th:href="@{/usuarios}" class="nav-link mb-0 pb-0">
                         <i class="bi bi-people-fill"></i> Usuarios
                     </a>
-                    <a th:href="@{/roles}" class="nav-link">
+                    <a th:href="@{/roles}" class="nav-link mb-0 pb-0">
                         <i class="bi bi-gear-fill"></i> Roles
-                    </a>
-                </div>
-                <div>
-                    <a th:href="@{/roles}" class="nav-link">
-                        <i class="bi bi-filetype-pdf"></i> Reportes
                     </a>
                 </div>
             </div>
 
             <div>
+                <h6>Reportes</h6>
+                <a href="reportPrinter/reporte_resumen_mensual/1" class="nav-link mb-0 pb-0" target="_blank">
+                    <i class="bi bi-filetype-pdf"></i> Resumen mensual
+                </a>
+                <a href="reportPrinter/reporte_stock/1" class="nav-link mb-0 pb-0" target="_blank">
+                    <i class="bi bi-filetype-pdf"></i> Productos
+                </a>
+                <a href="reportPrinter/reporte_stock_bajo/1" class="nav-link mb-0 pb-0" target="_blank">
+                    <i class="bi bi-filetype-pdf"></i> Stock bajo
+                </a>
+            </div>
+
+            <div>
                 <h6>Sistema</h6>
-                <a href="/productos" class="nav-link">
+                <a href="/productos" class="nav-link mb-0 pb-0">
                     <i class="bi bi-archive-fill"></i> Productos
                 </a>
-                <a href="/categoria" class="nav-link">
+                <a href="/categoria" class="nav-link mb-0 pb-0">
                     <i class="bi bi-collection-fill"></i> Categorías
                 </a>
-                <a href="/inventario" class="nav-link">
+                <a href="/inventario" class="nav-link mb-0 pb-0">
                     <i class="bi bi-box-seam-fill"></i> Inventario
                 </a>
-                <a href="/movimiento" class="nav-link">
+                <a href="/movimiento" class="nav-link mb-0 pb-0">
                     <i class="bi bi-arrow-left-right"></i> Movimientos
                 </a>
             </div>
 
             <div>
                 <h6>Auth</h6>
-                <a th:href="@{/logout}" class="nav-link">
+                <a th:href="@{/logout}" class="nav-link mb-0 pb-0">
                     <i class="bi bi-box-arrow-in-right"></i> Cerrar sesión
                 </a>
             </div>
