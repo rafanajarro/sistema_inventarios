@@ -212,49 +212,7 @@
 
                 if (hayProductosExcesoStock) {
                     $('#alertasExcesoStock').show(); // Mostrar alert solo si hay productos en la lista
-                }
-
-                const ctx = document.getElementById('graficoStockBajo').getContext('2d');
-                new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: labels,
-                        datasets: [
-                            {
-                                label: 'Stock Mínimo',
-                                data: stockMinValues,
-                                backgroundColor: 'rgba(255, 99, 132, 0.5)',
-                                borderColor: 'rgba(255, 99, 132, 1)',
-                                borderWidth: 1
-                            },
-                            {
-                                label: 'Stock Actual',
-                                data: stockActuValues,
-                                backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                                borderColor: 'rgba(54, 162, 235, 1)',
-                                borderWidth: 1
-                            }
-                        ]
-                    },
-                    options: {
-                        indexAxis: 'y', // Esto lo convierte en barra horizontal
-                        responsive: true,
-                        scales: {
-                            x: {
-                                beginAtZero: true
-                            }
-                        },
-                        plugins: {
-                            legend: {
-                                position: 'top'
-                            },
-                            title: {
-                                display: true,
-                                text: 'Productos con Stock por debajo del mínimo'
-                            }
-                        }
-                    }
-                });
+                }                
             },
             error: function (error) {
                 console.error("Error al obtener productos con stock bajo:", error);
