@@ -15,6 +15,10 @@ public class ProductoService {
     @Autowired
     private ProductoRepository productoRepository;
 
+        public List<Map<String, Object>> obtenerExcesoStock() {
+        return productoRepository.findExcesoStock();
+    }
+
     public String obtenerCantidadTotalProducto(Integer idProducto) {
         return productoRepository.findCantidadTotalProducto(idProducto);
     }

@@ -28,6 +28,12 @@
                         <ul id="listaProductosBajoStock" class="mb-0"></ul>
                     </div>
 
+                    <div id="alertasExcesoStock" class="alert alert-danger alerta-persistente mb-4"
+                        style="display: none;">
+                        <h5 class="alert-heading">Alerta: Productos con exceso de inventario</h5>
+                        <ul id="listaProductosExcesoStock" class="mb-0"></ul>
+                    </div>
+
                     <!-- Gráficos principales -->
                     <div class="row mb-4">
                         <div class="col-lg-6 mb-4">
@@ -176,6 +182,82 @@
             },
             error: function (error) {
                 console.error("Error al obtener el stock por categoría:", error);
+            }
+        });
+
+        //STOCK EXCESO
+        $.ajax({
+            url: "/productos/excesoStock",
+            type: "GET",
+            success: function (data) {
+                const labels = [];
+                const stockMinValues = [];
+                const stockActuValues = [];
+                const listaAlertas = $('#listaProductosExcesoStock');
+
+                let hayProductosExcesoStock = false;
+                listaAlertas.empty();
+
+                data.forEach(item => {
+                    labels.push(item.NOMBRE);
+                    //stockMinValues.push(item.STOCK_MINIMO);
+                    stockActuValues.push(item.STOCK_ACTUAL);
+
+                    // Verificar si el stock actual está por debajo del mínimo
+                    hayProductosExcesoStock = true;
+                    listaAlertas.append(`
+                            <li><strong>${item.NOMBRE}</strong>: ${item.STOCK_ACTUAL} unidades</li>`);
+
+                });
+
+                if (hayProductosExcesoStock) {
+                    $('#alertasExcesoStock').show(); // Mostrar alert solo si hay productos en la lista
+                }
+
+                const ctx = document.getElementById('graficoStockBajo').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: 'Stock Mínimo',
+                                data: stockMinValues,
+                                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                                borderColor: 'rgba(255, 99, 132, 1)',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Stock Actual',
+                                data: stockActuValues,
+                                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                borderWidth: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        indexAxis: 'y', // Esto lo convierte en barra horizontal
+                        responsive: true,
+                        scales: {
+                            x: {
+                                beginAtZero: true
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'top'
+                            },
+                            title: {
+                                display: true,
+                                text: 'Productos con Stock por debajo del mínimo'
+                            }
+                        }
+                    }
+                });
+            },
+            error: function (error) {
+                console.error("Error al obtener productos con stock bajo:", error);
             }
         });
 

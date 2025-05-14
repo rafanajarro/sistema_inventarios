@@ -53,6 +53,12 @@ public class ProductoController {
         return ResponseEntity.ok(resumen);
     }
 
+    @GetMapping("/excesoStock")
+    public ResponseEntity<?> obtenerExcesoStock() {
+        List<Map<String, Object>> resumen = productoService.obtenerExcesoStock();
+        return ResponseEntity.ok(resumen);
+    }
+
     @GetMapping("/stockBajo")
     public ResponseEntity<?> obtenerStockBajo() {
         List<Map<String, Object>> resumen = productoService.obtenerStockBajo();
