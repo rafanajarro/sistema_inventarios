@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class MainController {
 
     @RequestMapping(method = RequestMethod.GET, path = { "/", "", "/inicio", "/index" })
-    public String obtenerPaginaPrincipal(Model model) {
+    public String obtenerPaginaPrincipal(Model model) {        
         return "index.html";
     }
 
