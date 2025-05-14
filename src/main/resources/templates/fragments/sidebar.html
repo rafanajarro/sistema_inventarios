@@ -19,10 +19,9 @@
                 <i class="bi bi-grid-fill"></i> Dashboard
             </a>
 
-            <div>
+            <div sec:authorize="hasRole('ADMIN')">
                 <h6>Utilidades</h6>
-                <div sec:authorize="hasRole('ADMIN')">
-
+                <div>
                     <a th:href="@{/longitud}" class="nav-link mb-0 pb-0">
                         <i class="bi bi-rulers"></i> Medidas de longitud
                     </a>
@@ -47,7 +46,7 @@
                     <i class="bi bi-filetype-pdf"></i> Resumen mensual
                 </a>
                 <a href="reportPrinter/reporte_stock/1" class="nav-link mb-0 pb-0" target="_blank">
-                    <i class="bi bi-filetype-pdf"></i> Productos
+                    <i class="bi bi-filetype-pdf"></i> Niveles de inventario
                 </a>
                 <a href="reportPrinter/reporte_stock_bajo/1" class="nav-link mb-0 pb-0" target="_blank">
                     <i class="bi bi-filetype-pdf"></i> Stock bajo
